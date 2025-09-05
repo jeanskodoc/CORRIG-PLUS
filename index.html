@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorrigéPlus - Accueil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --payment: #9b59b6;
+            --college: #1abc9c;
+            --lycee: #f39c12;
+            --universite: #8e44ad;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-payment {
+            background: var(--payment);
+        }
+        
+        .btn-payment:hover {
+            background: #8e44ad;
+        }
+        
+        .btn-college {
+            background: var(--college);
+        }
+        
+        .btn-college:hover {
+            background: #16a085;
+        }
+        
+        .btn-lycee {
+            background: var(--lycee);
+        }
+        
+        .btn-lycee:hover {
+            background: #e67e22;
+        }
+        
+        .btn-universite {
+            background: var(--universite);
+        }
+        
+        .btn-universite:hover {
+            background: #6c3483;
+        }
+        
+        .btn-large {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            margin: 2rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 0.5rem auto;
+        }
+        
+        .intro {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .intro-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .intro-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .features {
+            background: var(--light);
+            padding: 4rem 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .levels {
+            padding: 4rem 0;
+        }
+        
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .level-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .level-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .level-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .college-color {
+            color: var(--college);
+        }
+        
+        .lycee-color {
+            color: var(--lycee);
+        }
+        
+        .universite-color {
+            color: var(--universite);
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            margin-bottom: 2rem;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    <h1>CorrigéPlus</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#features">Avantages</a></li>
+                        <li><a href="#levels">Niveaux</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Corrigés Types d'Épreuves pour Tous les Niveaux</h2>
+            <p>Des corrigés détaillés et professionnels pour réussir vos examens au collège, lycée et université</p>
+            <a href="cor.html" class="btn btn-large">Accéder aux corrigés</a>
+        </div>
+    </section>
+
+    <section id="about" class="intro">
+        <div class="container">
+            <h2 class="section-title">À propos de CorrigéPlus</h2>
+            <div class="intro-content">
+                <p>CorrigéPlus est une plateforme innovante dédiée à la réussite académique des étudiants de tous niveaux. Notre mission est de fournir des corrigés types d'épreuves professionnels et détaillés pour aider les élèves et étudiants à exceller dans leurs examens.</p>
+                <p>Notre équipe d'enseignants expérimentés et de professionnels de l'éducation travaille sans relâche pour créer des ressources pédagogiques de qualité qui couvrent l'ensemble du programme scolaire et universitaire.</p>
+                <p>Que vous soyez au collège, au lycée ou à l'université, CorrigéPlus vous accompagne dans votre parcours académique avec des outils adaptés à vos besoins.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Nos Avantages</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <h3>Corrigés Détaillés</h3>
+                    <p>Des explications étape par étape pour comprendre parfaitement chaque solution.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-clock feature-icon"></i>
+                    <h3>Gain de Temps</h3>
+                    <p>Accédez rapidement à des ressources de qualité sans perdre de temps dans vos recherches.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap feature-icon"></i>
+                    <h3>Réussite Garantie</h3>
+                    <p>Améliorez vos résultats grâce à des méthodologies éprouvées et des conseils d'experts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="levels" class="levels">
+        <div class="container">
+            <h2 class="section-title">Niveaux Scolaires</h2>
+            <div class="levels-grid">
+                <div class="level-card">
+                    <i class="fas fa-school level-icon college-color"></i>
+                    <h3>Collège</h3>
+                    <p>Corrigés adaptés pour toutes les classes du collège (6ème à 3ème) et toutes les matières, avec une approche pédagogique adaptée aux adolescents.</p>
+                </div>
+                
+                <div class="level-card">
+                    <i class="fas fa-graduation-cap level-icon lycee-color"></i>
+                    <h3>Lycée</h3>
+                    <p>Corrigés complets pour toutes les séries (générales et technologiques) avec respect des barèmes officiels des examens.</p>
+                </div>
+                
+                <div class="level-card">
+                    <i class="fas fa-university level-icon universite-color"></i>
+                    <h3>Universitaire</h3>
+                    <p>Corrigés spécialisés pour toutes les filières universitaires, avec rigueur scientifique et approche académique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Prêt à exceller dans vos examens ?</h2>
+            <a href="cor.html" class="btn btn-large">Accéder aux corrigés maintenant</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    <h1>CorrigéPlus</h1>
+                </div>
+                <p>Service professionnel de corrigés types pour tous les niveaux</p>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                
+                <p>Email: contact@corrigeplus.com | Téléphone: +33 1 23 45 67 89</p>
+                <p>&copy; 2025 CorrigéPlus. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
