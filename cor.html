@@ -212,7 +212,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 极.1);
             transition: transform 0.3s;
         }
         
@@ -265,7 +265,7 @@
             border-radius: 8px;
             padding: 2rem;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 极 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .level-card h3 {
@@ -513,6 +513,26 @@
             animation: pulse 2s infinite;
         }
         
+        /* Bouton de chat */
+        .chat-bubble {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        
         @keyframes pulse {
             0% {
                 transform: scale(1);
@@ -520,7 +540,7 @@
             }
             50% {
                 transform: scale(1.05);
-                box-shadow: 0 6px 14px rgba(0, 0, 极, 0.25);
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
             }
             100% {
                 transform: scale(1);
@@ -551,9 +571,13 @@
                 font-size: 1rem;
             }
             
-            .payment-bubble {
+            .payment-bubble, .chat-bubble {
                 bottom: 20px;
                 left: 20px;
+            }
+            
+            .chat-bubble {
+                bottom: 90px;
             }
         }
     </style>
@@ -697,18 +721,7 @@
                     <div class="service-content">
                         <h3>Corrigés Université</h3>
                         <p>Corrigés spécialisés pour toutes les filières universitaires, avec approche académique et rigueur scientifique.</p>
-                        <a href="极://xnzfa0rw.forms.app/untitled-form" class="btn btn-universite" target="_blank" style="margin-top: 1rem;">Voir les corrigés</a>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon" style="background: var(--secondary);">
-                        <极 class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Méthodologie</h3>
-                        <p>Guide complet de méthodologie pour chaque type d'épreuve, avec conseils pour bien rédiger et gérer son temps.</p>
-                        <a href="https://xnzfa0rw.forms.app/untitled-form" class="btn btn-secondary" target="_blank" style="margin-top: 1rem;">Voir les corrigés</a>
+                        <a href="https://xnzfa0rw.forms.app/untitled-form" class="btn btn-universite" target="_blank" style="margin-top: 极rem;">Voir les corrigés</a>
                     </div>
                 </div>
             </div>
@@ -718,7 +731,7 @@
     <section id="pricing" class="pricing">
         <div class="container">
             <h2 class="section-title">Nos Tarifs</h2>
-            <极 class="pricing-options">
+            <div class="pricing-options">
                 <div class="pricing-card">
                     <h3>Corrigé Simple</h3>
                     <div class="price">5-10€</div>
@@ -737,22 +750,22 @@
                     <ul class="price-features">
                         <li>5 à 10 corrigés par matière</li>
                         <li>Fiches méthodologiques</li>
-                        <li>Annales corrigées</li>
+                        <极>Annales corrigées</li>
                         <li>Support prioritaire</li>
                     </ul>
                     <a href="https://me.fedapay.com/cWSMqAQC" class="btn" target="_blank">Commander</a>
                 </div>
                 
                 <div class="pricing-card">
-                    <h3>Abonnement</h3>
-                    <div class="price">100€/mois</div>
+                    <h3>Pack Complet</h3>
+                    <div class="price">80-120€</div>
                     <ul class="price-features">
-                        <li>Accès illimité à tous les corrigés</li>
-                        <li>Nouvelles corrections chaque mois</li>
+                        <li>Tous les corrigés d'un niveau</li>
+                        <li>Accès illimité 1 an</li>
                         <li>Support personnalisé</li>
                         <li>Ressources exclusives</li>
                     </ul>
-                    <a href="https://me.fedapay.com/cWSMqAQC" class="btn" target="_blank">S'abonner</a>
+                    <a href="https://me.fedapay.com/cWSMqAQC" class="btn" target="_blank">Commander</a>
                 </div>
             </div>
         </div>
@@ -765,7 +778,7 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Commande</h3>
-                    <p>Vous choisissez le type de corrigé dont vous avez besoin</p>
+                    <p>Vous choisissez le type de corrigé dont vous avez besoin</极>
                 </div>
                 
                 <div class="step">
@@ -775,7 +788,7 @@
                 </div>
                 
                 <div class="step">
-                    <div class="极-number">3</div>
+                    <div class="step-number">3</div>
                     <h3>Validation</h3>
                     <p>Le corrigé est relu et validé par notre comité pédagogique</p>
                 </div>
@@ -794,7 +807,7 @@
             <h2 class="section-title">Témoignages</h2>
             <div class="testimonials-grid">
                 <div class="testimonial">
-                    <p class="testimonial-text">"Les corrigés de mathématiques m'ont sauvé la mise pour le brevet. Explications claires et détaillées!"</p>
+                    <p class="极estimonial-text">"Les corrigés de mathématiques m'ont sauvé la mise pour le brevet. Explications claires et détaillées!"</p>
                     <p class="testimonial-author">— Lucas, élève de 3ème</p>
                 </div>
                 
@@ -814,64 +827,19 @@
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title" style="color: white;">Contactez-nous</h2>
-            <div class="contact-form">
-                <form id="serviceRequestForm">
-                    <div class="form-group">
-                        <label for="name">Nom complet</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <极 for="level">Niveau scolaire</label>
-                        <select id="level" required>
-                            <option value="">Sélectionnez un niveau</option>
-                            <option value="college">Collège</option>
-                            <option value="lycee">Lycée</option>
-                            <option value="universite">Université</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject">Matière</label>
-                        <select id="subject" required>
-                            <option value="">Sélectionnez une matière</option>
-                            <option value="maths">Mathématiques</option>
-                            <option value="physique">Physique-Chimie</option>
-                            <option value="svt">SVT</option>
-                            <option value="histoire">Histoire-Géographie</option>
-                            <option value="francais">Français</option>
-                            <option value="philo">Philosophie</option>
-                            <option value="anglais">Anglais</option>
-                            <option value="economie">Économie</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Détails de votre demande</label>
-                        <textarea id="message" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn">Envoyer la demande</button>
-                </form>
-                   
-                <div class="external-contact">
-                    <p style="color: var(--dark); margin: 1rem 0;">Ou contactez-nous directement par email</p>
-                    <a href="mailto:contact@corrigeplus.com" class="btn btn-secondary">
-                        <i class="fas fa-envelope"></i> contact@corrigeplus.com
-                    </a>
-                </div>
-            </div>
             
             <div class="payment-section">
                 <h3>Paiement Sécurisé</h3>
                 <p>Effectuez votre paiement en toute sécurité via notre plateforme de paiement</p>
                 <a href="https://me.fedapay.com/cWSMqAQC" class="btn btn-payment" target="_blank">
                     <i class="fas fa-credit-card"></i> Payer maintenant
+                </a>
+            </div>
+            
+            <div class="external-contact">
+                <p>Pour toute question, n'hésitez pas à nous contacter par email :</p>
+                <a href="mailto:contact@corrigeplus.com" class="btn btn-secondary" style="margin-top: 1rem;">
+                    <i class="fas fa-envelope"></i> contact@corrigeplus.com
                 </a>
             </div>
         </div>
@@ -898,16 +866,28 @@
         </div>
     </footer>
 
-    <!-- Bulle de paiement à GAUCHE -->
-    <div class="payment-bubble" onclick="window.open('https://me.fedapay.com/cWSMqAQC', '_blank')">
+    <!-- Bouton de paiement flottant -->
+    <div class="payment-bubble">
         <i class="fas fa-credit-card"></i>
+    </div>
+    
+    <!-- Bouton de chat flottant -->
+    <div class="chat-bubble">
+        <i class="fas fa-comments"></i>
     </div>
 
     <script>
-        document.getElementById('serviceRequestForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Merci pour votre demande! Nous vous contacterons très rapidement.');
-            this.reset();
+        // Gestion du bouton de paiement
+        document.querySelector('.payment-bubble').addEventListener('click', function() {
+            window.open('https://me.fedapay.com/cWSMqAQC', '_blank');
+        });
+        
+        // Gestion du bouton de chat
+        document.querySelector('.chat-bubble').addEventListener('click', function() {
+            // Ouvrir le widget Tawk.to
+            if (typeof Tawk_API !== 'undefined') {
+                Tawk_API.maximize();
+            }
         });
     </script>
     
