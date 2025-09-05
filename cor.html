@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorrigéPlus - Corrigés Types d'Épreuves</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --payment: #9b59b6;
+            --college: #1abc9c;
+            --lycee: #f39c12;
+            --universite: #8e44ad;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-payment {
+            background: var(--payment);
+        }
+        
+        .btn-payment:hover {
+            background: #8e44ad;
+        }
+        
+        .btn-college {
+            background: var(--college);
+        }
+        
+        .btn-college:hover {
+            background: #16a085;
+        }
+        
+        .btn-lycee {
+            background: var(--lycee);
+        }
+        
+        .btn-lycee:hover {
+            background: #e67e22;
+        }
+        
+        .btn-universite {
+            background: var(--universite);
+        }
+        
+        .btn-universite:hover {
+            background: #6c3483;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 0.5rem auto;
+        }
+        
+        .services {
+            padding: 3rem 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            color: white;
+            font-size: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .college-bg {
+            background: var(--college);
+        }
+        
+        .lycee-bg {
+            background: var(--lycee);
+        }
+        
+        .universite-bg {
+            background: var(--universite);
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .levels {
+            background: var(--light);
+            padding: 3rem 0;
+        }
+        
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .level-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .level-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .subjects {
+            padding: 3rem 0;
+        }
+        
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .subject-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .subject-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .process {
+            background: var(--light);
+            padding: 3rem 0;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .step {
+            text-align: center;
+            width: 250px;
+            margin: 1rem;
+        }
+        
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .testimonials {
+            padding: 3rem 0;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .pricing {
+            background: var(--light);
+            padding: 3rem 0;
+        }
+        
+        .pricing-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+        
+        .price {
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+        
+        .price-features {
+            list-style: none;
+            margin: 1rem 0;
+            text-align: left;
+        }
+        
+        .price-features li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .price-features li:before {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            left: 0;
+        }
+        
+        .contact {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+        }
+        
+        .external-contact {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .payment-section {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Bouton de paiement à GAUCHE */
+        .payment-bubble {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--payment);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 14px rgba(0, 0, 极, 0.25);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .payment-bubble {
+                bottom: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    <h1>CorrigéPlus</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#levels">Niveaux</a></li>
+                        <li><a href="#subjects">Matières</a></li>
+                        <li><a href="#pricing">Tarifs</a></li>
+                        <li><a href="#process">Processus</a></li>
+                        <li><a href="#testimonials">Témoignages</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Corrigés Types d'Épreuves pour Tous les Niveaux</h2>
+            <p>Des corrigés détaillés et professionnels pour réussir vos examens au collège, lycée et université</p>
+            <a href="#levels" class="btn">Explorer les niveaux</a>
+            <a href="#pricing" class="btn btn-payment" style="margin-left: 10px;">Voir nos tarifs</a>
+        </div>
+    </section>
+
+    <section id="levels" class="levels">
+        <div class="container">
+            <h2 class="section-title">Nos Niveaux Scolaires</h2>
+            <div class="levels-grid">
+                <div class="level-card">
+                    <i class="fas fa-school fa-3x" style="color: var(--college); margin-bottom: 1rem;"></i>
+                    <h3>Collège</h3>
+                    <p>Corrigés pour toutes les classes du collège (6ème à 3ème) et toutes les matières</p>
+                    <a href="https://xnzfa0rw.forms.app/untitled-form" class="btn btn-college" target="_blank">Voir les corrigés</a>
+                </div>
+                
+                <div class="level-card">
+                    <i class="fas fa-graduation-cap fa-3x" style="color: var(--lycee); margin-bottom: 1rem;"></i>
+                    <h3>Lycée</h3>
+                    <p>Corrigés pour toutes les séries (A, C, D, etc.) et toutes les matières du lycée</p>
+                    <a href="https://xnzfa0rw.forms.app/untitled-form" class="btn btn-lycee" target="_blank">Voir les corrigés</a>
+                </div>
+                
+                <div class="level-card">
+                    <i class="fas fa-university fa-3x" style="color: var(--universite); margin-bottom: 1rem;"></i>
+                    <h3>Universitaire</h3>
+                    <p>Corrigés pour toutes les filières universitaires et niveaux (Licence, Master)</p>
+                    <a href="https://xnzfa0rw.forms.app/untitled-form" class="btn btn-universite" target="_blank">Voir les corrigés</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="subjects" class="subjects">
+        <div class="container">
+            <h2 class="section-title">Matières Disponibles</h2>
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <i class="fas fa-calculator subject-icon"></i>
+                    <h3>Mathématiques</h3>
+                </div>
+                
+                <div class="subject-card">
+                    <i class="fas fa-flask subject-icon"></i>
+                    <h3>Physique-Chimie</h3>
+                </div>
+                
+                <div class="subject-card">
+                    <i class="fas fa-dna subject-icon"></i>
+                    <h3>SVT</h3>
+                </div>
+                
+                <div class="subject-card">
+                    <i class="fas fa-globe-europe subject-icon"></i>
+                    <h3>Histoire-Géo</h3>
+                </div>
+                
+                <div class="subject-card">
+                    <i class="fas fa-language subject-icon"></i>
+                    <h3>Français</h3>
+                </div>
+                
+                <div class="subject-card">
+                    <i class="fas fa-book subject-icon"></i>
+                    <h3>Philosophie</h3>
+                </div>
+                
+                <div class="subject-card">
+                    <i class="fas fa-globe subject-icon"></i>
+                    <h3>Anglais</h3>
+                </div>
+                
+                <div class="subject-card">
+                    <i class="fas fa-euro-sign subject-icon"></i>
+                    <h3>Économie</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Nos Services de Corrigés</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon college-bg">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Corrigés Collège</h3>
+                        <p>Corrigés détaillés pour toutes les matières du collège, avec explications étape par étape et méthodologie adaptée au niveau.</p>
+                        <a href="https://xnzfa0rw.forms.app/untitled-form" class="btn btn-college" target="_blank" style="margin-top: 1rem;">Voir les corrigés</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon lycee-bg">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Corrigés Lycée</h3>
+                        <p>Corrigés complets pour toutes les séries (A, C, D, etc.) avec respect des barèmes officiels et techniques de résolution.</p>
+                        <a href="https://xnzfa0rw.forms.app/untitled-form" class="btn btn-lycee" target="_blank" style="margin-top: 1rem;">Voir les corrigés</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon universite-bg">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Corrigés Université</h3>
+                        <p>Corrigés spécialisés pour toutes les filières universitaires, avec approche académique et rigueur scientifique.</p>
+                        <a href="极://xnzfa0rw.forms.app/untitled-form" class="btn btn-universite" target="_blank" style="margin-top: 1rem;">Voir les corrigés</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: var(--secondary);">
+                        <极 class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Méthodologie</h3>
+                        <p>Guide complet de méthodologie pour chaque type d'épreuve, avec conseils pour bien rédiger et gérer son temps.</p>
+                        <a href="https://xnzfa0rw.forms.app/untitled-form" class="btn btn-secondary" target="_blank" style="margin-top: 1rem;">Voir les corrigés</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Nos Tarifs</h2>
+            <极 class="pricing-options">
+                <div class="pricing-card">
+                    <h3>Corrigé Simple</h3>
+                    <div class="price">5-10€</div>
+                    <ul class="price-features">
+                        <li>Corrigé détaillé d'une épreuve</li>
+                        <li>Explications étape par étape</li>
+                        <li>Format PDF téléchargeable</li>
+                        <li>Livraison sous 24h</li>
+                    </ul>
+                    <a href="https://me.fedapay.com/cWSMqAQC" class="btn" target="_blank">Commander</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Pack Matière</h3>
+                    <div class="price">30-50€</div>
+                    <ul class="price-features">
+                        <li>5 à 10 corrigés par matière</li>
+                        <li>Fiches méthodologiques</li>
+                        <li>Annales corrigées</li>
+                        <li>Support prioritaire</li>
+                    </ul>
+                    <a href="https://me.fedapay.com/cWSMqAQC" class="btn" target="_blank">Commander</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Abonnement</h3>
+                    <div class="price">100€/mois</div>
+                    <ul class="price-features">
+                        <li>Accès illimité à tous les corrigés</li>
+                        <li>Nouvelles corrections chaque mois</li>
+                        <li>Support personnalisé</li>
+                        <li>Ressources exclusives</li>
+                    </ul>
+                    <a href="https://me.fedapay.com/cWSMqAQC" class="btn" target="_blank">S'abonner</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="process">
+        <div class="container">
+            <h2 class="section-title">Notre Processus</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Commande</h3>
+                    <p>Vous choisissez le type de corrigé dont vous avez besoin</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Réalisation</h3>
+                    <p>Nos enseignants experts préparent le corrigé détaillé</p>
+                </div>
+                
+                <div class="step">
+                    <div class="极-number">3</div>
+                    <h3>Validation</h3>
+                    <p>Le corrigé est relu et validé par notre comité pédagogique</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Livraison</h3>
+                    <p>Vous recevez votre corrigé par email dans le format choisi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Témoignages</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">"Les corrigés de mathématiques m'ont sauvé la mise pour le brevet. Explications claires et détaillées!"</p>
+                    <p class="testimonial-author">— Lucas, élève de 3ème</p>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"En tant que parent, j'apprécie la qualité des corrigés qui aident mon fils à progresser dans toutes les matières."</p>
+                    <p class="testimonial-author">— Sophie, parent d'élève</p>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"Les corrigés de philo pour le bac L sont exceptionnels. Ça m'a vraiment aidé à comprendre la méthodologie."</p>
+                    <p class="testimonial-author">— Manon, élève de Terminale</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Contactez-nous</h2>
+            <div class="contact-form">
+                <form id="serviceRequestForm">
+                    <div class="form-group">
+                        <label for="name">Nom complet</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <极 for="level">Niveau scolaire</label>
+                        <select id="level" required>
+                            <option value="">Sélectionnez un niveau</option>
+                            <option value="college">Collège</option>
+                            <option value="lycee">Lycée</option>
+                            <option value="universite">Université</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Matière</label>
+                        <select id="subject" required>
+                            <option value="">Sélectionnez une matière</option>
+                            <option value="maths">Mathématiques</option>
+                            <option value="physique">Physique-Chimie</option>
+                            <option value="svt">SVT</option>
+                            <option value="histoire">Histoire-Géographie</option>
+                            <option value="francais">Français</option>
+                            <option value="philo">Philosophie</option>
+                            <option value="anglais">Anglais</option>
+                            <option value="economie">Économie</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Détails de votre demande</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Envoyer la demande</button>
+                </form>
+                   
+                <div class="external-contact">
+                    <p style="color: var(--dark); margin: 1rem 0;">Ou contactez-nous directement par email</p>
+                    <a href="mailto:contact@corrigeplus.com" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i> contact@corrigeplus.com
+                    </a>
+                </div>
+            </div>
+            
+            <div class="payment-section">
+                <h3>Paiement Sécurisé</h3>
+                <p>Effectuez votre paiement en toute sécurité via notre plateforme de paiement</p>
+                <a href="https://me.fedapay.com/cWSMqAQC" class="btn btn-payment" target="_blank">
+                    <i class="fas fa-credit-card"></i> Payer maintenant
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    <h1>CorrigéPlus</h1>
+                </div>
+                <p>Service professionnel de corrigés types pour tous les niveaux</p>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                
+                <p>&copy; 2025 CorrigéPlus. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bulle de paiement à GAUCHE -->
+    <div class="payment-bubble" onclick="window.open('https://me.fedapay.com/cWSMqAQC', '_blank')">
+        <i class="fas fa-credit-card"></i>
+    </div>
+
+    <script>
+        document.getElementById('serviceRequestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre demande! Nous vous contacterons très rapidement.');
+            this.reset();
+        });
+    </script>
+    
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/68b88883721af15d8752e7d4/1j48dahct';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+</html>
