@@ -38,7 +38,7 @@
             z-index: 1;
             text-align: center;
             padding: 1rem;
-            background: rgba(0, 0, 0, 0.25); /* Légère transparence pour lisibilité */
+            background: rgba(0, 0, 0, 0.25);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -180,96 +180,38 @@
             color: #2ecc71;
         }
 
-        /* Boutons REDUITS avec lien vers Corrigé.html */
-        .buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            margin: 1.5rem 0;
+        /* UN SEUL BOUTON principal */
+        .single-button-container {
+            margin: 2rem 0;
         }
 
-        .action-button {
+        .main-button {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #3498db, #2ecc71);
+            gap: 12px;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
             color: white;
             text-decoration: none;
-            padding: 0.6rem 1.2rem;
+            padding: 0.8rem 2rem;
             border-radius: 25px;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             font-weight: 600;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            min-width: 180px;
+            min-width: 220px;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
 
-        .action-button.correction {
-            background: linear-gradient(135deg, #e74c3c, #f39c12);
-        }
-
-        .action-button.conception {
-            background: linear-gradient(135deg, #9b59b6, #3498db);
-        }
-
-        .action-button.all-services {
-            background: linear-gradient(135deg, #2ecc71, #3498db);
-        }
-
-        .action-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
-        }
-
-        .action-button.correction:hover {
-            background: linear-gradient(135deg, #c0392b, #e67e22);
-        }
-
-        .action-button.conception:hover {
-            background: linear-gradient(135deg, #8e44ad, #2980b9);
-        }
-
-        .action-button.all-services:hover {
-            background: linear-gradient(135deg, #27ae60, #2980b9);
-        }
-
-        .action-button i {
-            font-size: 0.9rem;
-        }
-
-        /* Bouton principal d'accès */
-        .main-access-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, #e74c3c, #f39c12);
-            color: white;
-            text-decoration: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            min-width: 200px;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            margin: 0.5rem 0 2rem 0;
-        }
-
-        .main-access-button:hover {
+        .main-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
             background: linear-gradient(135deg, #c0392b, #e67e22);
         }
 
-        .main-access-button i {
-            font-size: 1rem;
+        .main-button i {
+            font-size: 1.1rem;
         }
 
         /* Grille de fonctionnalités simplifiée */
@@ -337,21 +279,10 @@
                 margin: 0.5rem 0.5rem 1.5rem;
             }
             
-            .action-button {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
-                min-width: 160px;
-            }
-            
-            .main-access-button {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-                min-width: 180px;
-            }
-            
-            .buttons-container {
-                flex-direction: column;
-                align-items: center;
+            .main-button {
+                padding: 0.7rem 1.5rem;
+                font-size: 1rem;
+                min-width: 200px;
             }
             
             .features {
@@ -397,12 +328,6 @@
                 de documents académiques en LaTeX/Beamer
             </p>
 
-            <!-- Bouton principal d'accès à Corrigé.html -->
-            <a href="Corrigé.html" class="main-access-button">
-                <i class="fas fa-external-link-alt"></i>
-                Accéder à la Plateforme Complète
-            </a>
-
             <!-- Services proposés -->
             <div class="services-container">
                 <!-- Service 1: Correction -->
@@ -438,19 +363,11 @@
                 </div>
             </div>
 
-            <!-- Boutons d'action vers Corrigé.html -->
-            <div class="buttons-container">
-                <a href="Corrigé.html" class="action-button correction">
-                    <i class="fas fa-graduation-cap"></i>
-                    Correction d'Épreuves
-                </a>
-                <a href="Corrigé.html" class="action-button conception">
-                    <i class="fas fa-pencil-alt"></i>
-                    Conception de Documents
-                </a>
-                <a href="Corrigé.html" class="action-button all-services">
-                    <i class="fas fa-cogs"></i>
-                    Tous les Services
+            <!-- UN SEUL BOUTON vers Corrigé.html -->
+            <div class="single-button-container">
+                <a href="Correction.html" class="main-button">
+                    <i class="fas fa-external-link-alt"></i>
+                    Accéder à la Plateforme
                 </a>
             </div>
 
@@ -505,14 +422,14 @@
             });
             
             // Confirmation de redirection vers Corrigé.html
-            const buttons = document.querySelectorAll('a[href="Correction.html"]');
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
+            const mainButton = document.querySelector('.main-button');
+            if (mainButton) {
+                mainButton.addEventListener('click', function(e) {
                     if (!confirm('Ouvrir la plateforme CorrigéPlus ?')) {
                         e.preventDefault();
                     }
                 });
-            });
+            }
         });
 
         // Animation des cartes au survol
