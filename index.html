@@ -13,12 +13,10 @@
             --light: #ecf0f1;
             --dark: #2c3e50;
             --success: #27ae60;
-            --payment: #9b59b6;
             --college: #1abc9c;
             --lycee: #f39c12;
             --universite: #8e44ad;
-            --tab-bg: #f8f9fa;
-            --tab-active: #ffffff;
+            --these: #9b59b6;
         }
         
         * {
@@ -142,16 +140,16 @@
             display: inline-block;
             background: var(--accent);
             color: white;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border: none;
             border-radius: 5px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
             cursor: pointer;
-            font-size: 0.95rem;
-            min-width: 120px;
-            max-width: 200px;
+            font-size: 0.9rem;
+            min-width: 100px;
+            max-width: 180px;
         }
         
         .btn:hover {
@@ -168,18 +166,8 @@
             background: #2980b9;
         }
         
-        .btn-payment {
-            background: var(--payment);
-        }
-        
-        .btn-payment:hover {
-            background: #8e44ad;
-        }
-        
         .btn-college {
             background: var(--college);
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
         }
         
         .btn-college:hover {
@@ -188,8 +176,6 @@
         
         .btn-lycee {
             background: var(--lycee);
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
         }
         
         .btn-lycee:hover {
@@ -198,12 +184,18 @@
         
         .btn-universite {
             background: var(--universite);
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
         }
         
         .btn-universite:hover {
             background: #6c3483;
+        }
+        
+        .btn-these {
+            background: var(--these);
+        }
+        
+        .btn-these:hover {
+            background: #8e44ad;
         }
         
         .btn-large {
@@ -227,6 +219,128 @@
             background: var(--secondary);
             margin: 0.5rem auto;
             border-radius: 2px;
+        }
+        
+        /* TABS PRINCIPAUX */
+        .main-tabs {
+            padding: 3rem 0;
+            background: var(--light);
+        }
+        
+        .tabs-header-main {
+            display: flex;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            overflow-x: auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-main {
+            padding: 1.2rem 2rem;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            flex: 1;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-main:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .tab-main.active {
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        .tab-main.college.active {
+            border-bottom-color: var(--college);
+        }
+        
+        .tab-main.lycee.active {
+            border-bottom-color: var(--lycee);
+        }
+        
+        .tab-main.universite.active {
+            border-bottom-color: var(--universite);
+        }
+        
+        .tab-main.these.active {
+            border-bottom-color: var(--these);
+        }
+        
+        .tabs-content-main {
+            background: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .tab-content-main {
+            padding: 2rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content-main.active {
+            display: block;
+        }
+        
+        /* Grille des matières */
+        .matieres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .matiere-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .matiere-card.college {
+            border-left-color: var(--college);
+        }
+        
+        .matiere-card.lycee {
+            border-left-color: var(--lycee);
+        }
+        
+        .matiere-card.universite {
+            border-left-color: var(--universite);
+        }
+        
+        .matiere-card.these {
+            border-left-color: var(--these);
+        }
+        
+        .matiere-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .matiere-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .matiere-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .matiere-list li {
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #ddd;
         }
         
         /* MODAL pour formulaires */
@@ -284,7 +398,7 @@
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
         
         .form-group label {
@@ -292,14 +406,15 @@
             margin-bottom: 0.5rem;
             color: var(--primary);
             font-weight: 500;
+            font-size: 0.95rem;
         }
         
         .form-control {
             width: 100%;
-            padding: 0.8rem;
+            padding: 0.7rem;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: border-color 0.3s;
         }
         
@@ -310,14 +425,14 @@
         }
         
         textarea.form-control {
-            min-height: 100px;
+            min-height: 80px;
             resize: vertical;
         }
         
         .form-note {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #666;
-            margin-top: 0.5rem;
+            margin-top: 0.3rem;
         }
         
         .whatsapp-icon {
@@ -335,113 +450,11 @@
             animation: fadeIn 0.3s ease;
         }
         
-        /* Section Tabs */
-        .tabs-section {
-            padding: 4rem 0;
-            background-color: var(--tab-bg);
-        }
-        
-        .tabs-container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .tabs-header {
-            display: flex;
-            background: var(--light);
-            border-bottom: 1px solid #ddd;
-            overflow-x: auto;
-        }
-        
-        .tab-button {
-            padding: 1rem 2rem;
-            background: none;
-            border: none;
-            font-weight: 600;
-            color: var(--primary);
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-            flex: 1;
-            text-align: center;
-        }
-        
-        .tab-button:hover {
-            background-color: rgba(52, 152, 219, 0.1);
-        }
-        
-        .tab-button.active {
-            background-color: var(--tab-active);
-            color: var(--secondary);
-            border-bottom: 3px solid var(--secondary);
-        }
-        
-        .tab-content {
-            padding: 2rem;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .tab-content h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-        
-        .tab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .subject-card {
-            background: var(--light);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: all 0.3s;
-            border-left: 4px solid var(--secondary);
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .subject-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .subject-card h4 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .subject-card .btn {
-            align-self: flex-start;
-            margin-top: 1rem;
-        }
-        
-        /* Autres sections existantes améliorées */
+        /* Sections existantes */
         .intro {
             padding: 4rem 0;
             text-align: center;
             background: white;
-        }
-        
-        .intro-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .intro-content p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
         }
         
         .features {
@@ -466,102 +479,12 @@
             border-top: 4px solid var(--secondary);
         }
         
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-        
-        .levels {
-            padding: 4rem 0;
-            background: white;
-        }
-        
-        .levels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .level-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            border: 1px solid #eee;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .level-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .level-card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .level-card p {
-            margin-bottom: 1.5rem;
-        }
-        
-        .level-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .college-color {
-            color: var(--college);
-        }
-        
-        .lycee-color {
-            color: var(--lycee);
-        }
-        
-        .universite-color {
-            color: var(--universite);
-        }
-        
         .cta {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             padding: 5rem 0;
             text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: cover;
-        }
-        
-        .cta h2 {
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .cta .btn {
-            position: relative;
-            z-index: 1;
         }
         
         footer {
@@ -569,50 +492,6 @@
             color: white;
             padding: 2rem 0;
             text-align: center;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .social-links {
-            margin: 1.5rem 0;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1.2rem;
-            margin: 0 0.5rem;
-            border-radius: 50%;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-        }
-        
-        .contact-info {
-            margin: 1rem 0;
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .contact-info p {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
         
         /* Animations */
@@ -668,33 +547,24 @@
                 font-size: 2rem;
             }
             
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .tabs-header {
+            .tabs-header-main {
                 flex-direction: column;
             }
             
-            .tab-button {
-                padding: 0.8rem;
-                border-bottom: 1px solid #ddd;
+            .tab-main {
+                padding: 1rem;
+                border-right: none;
+                border-bottom: 1px solid #eee;
             }
             
-            .contact-info {
-                flex-direction: column;
-                gap: 0.5rem;
+            .matieres-grid {
+                grid-template-columns: 1fr;
             }
             
             .btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-                min-width: 100px;
-            }
-            
-            .modal-content {
-                padding: 1.5rem;
-                width: 95%;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+                min-width: 90px;
             }
         }
     </style>
@@ -712,8 +582,7 @@
                     <ul>
                         <li><a href="#about">À propos</a></li>
                         <li><a href="#features">Avantages</a></li>
-                        <li><a href="#subjects">Matières</a></li>
-                        <li><a href="#levels">Niveaux</a></li>
+                        <li><a href="#niveaux">Niveaux</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
@@ -725,7 +594,7 @@
         <div class="container hero-content">
             <h2>Corrigés Types d'Épreuves pour Tous les Niveaux</h2>
             <p>Des corrigés détaillés et professionnels pour réussir vos examens au collège, lycée et université</p>
-            <a href="cor.html" class="btn btn-large">Accéder aux corrigés</a>
+            <button class="btn btn-large commander-btn" data-service="Service Général">Commander un service</button>
         </div>
     </section>
 
@@ -735,7 +604,6 @@
             <div class="intro-content">
                 <p>CorrigéPlus est une plateforme innovante dédiée à la réussite académique des étudiants de tous niveaux. Notre mission est de fournir des corrigés types d'épreuves professionnels et détaillés pour aider les élèves et étudiants à exceller dans leurs examens.</p>
                 <p>Notre équipe d'enseignants expérimentés et de professionnels de l'éducation travaille sans relâche pour créer des ressources pédagogiques de qualité qui couvrent l'ensemble du programme scolaire et universitaire.</p>
-                <p>Que vous soyez au collège, au lycée ou à l'université, CorrigéPlus vous accompagne dans votre parcours académique avec des outils adaptés à vos besoins.</p>
             </div>
         </div>
     </section>
@@ -765,180 +633,233 @@
         </div>
     </section>
 
-    <!-- Nouvelle Section Tabs pour les matières -->
-    <section id="subjects" class="tabs-section">
+    <!-- Section principale avec onglets par niveau -->
+    <section id="niveaux" class="main-tabs">
         <div class="container">
-            <h2 class="section-title">Matières Disponibles</h2>
-            <div class="tabs-container">
-                <div class="tabs-header">
-                    <button class="tab-button active" data-tab="mathematiques">Mathématiques</button>
-                    <button class="tab-button" data-tab="sciences">Sciences</button>
-                    <button class="tab-button" data-tab="lettres">Lettres & Langues</button>
-                    <button class="tab-button" data-tab="sciences-humaines">Sciences Humaines</button>
-                    <button class="tab-button" data-tab="professionnelles">Filières Professionnelles</button>
-                </div>
-                
-                <div class="tab-content active" id="mathematiques">
-                    <h3>Mathématiques</h3>
-                    <p>Des corrigés complets pour tous les niveaux, de l'arithmétique de base au calcul différentiel avancé.</p>
-                    <div class="tab-grid">
-                        <div class="subject-card">
-                            <h4>Algèbre</h4>
-                            <p>Équations, fonctions, polynômes, matrices</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Algèbre">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Géométrie</h4>
-                            <p>Plane, spatiale, analytique, différentielle</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Géométrie">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Analyse</h4>
-                            <p>Calcul différentiel et intégral, suites, séries</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Analyse">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Probabilités & Statistiques</h4>
-                            <p>Théorie des probabilités, statistiques descriptives et inférentielles</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Probabilités & Statistiques">Commander</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="sciences">
-                    <h3>Sciences</h3>
-                    <p>Corrigés scientifiques rigoureux pour comprendre les phénomènes naturels et technologiques.</p>
-                    <div class="tab-grid">
-                        <div class="subject-card">
-                            <h4>Physique</h4>
-                            <p>Mécanique, optique, électromagnétisme, physique quantique</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Physique">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Chimie</h4>
-                            <p>Organique, inorganique, analytique, chimie physique</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Chimie">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Sciences de la Vie</h4>
-                            <p>Biologie cellulaire, génétique, physiologie, écologie</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Sciences de la Vie">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Sciences de la Terre</h4>
-                            <p>Géologie, météorologie, astronomie</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Sciences de la Terre">Commander</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="lettres">
-                    <h3>Lettres & Langues</h3>
-                    <p>Analyses littéraires, dissertations et commentaires pour exceller en langues et littérature.</p>
-                    <div class="tab-grid">
-                        <div class="subject-card">
-                            <h4>Français</h4>
-                            <p>Dissertations, commentaires, analyses littéraires</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Français">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Anglais</h4>
-                            <p>Compréhension, expression, traduction, littérature</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Anglais">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Philosophie</h4>
-                            <p>Dissertations, explications de texte</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Philosophie">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Langues Étrangères</h4>
-                            <p>Espagnol, Allemand, Italien, Chinois</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Langues Étrangères">Commander</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="sciences-humaines">
-                    <h3>Sciences Humaines</h3>
-                    <p>Analyses historiques, économiques et sociales avec méthodologie académique.</p>
-                    <div class="tab-grid">
-                        <div class="subject-card">
-                            <h4>Histoire</h4>
-                            <p>Compositions, études de documents, chronologies</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Histoire">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Géographie</h4>
-                            <p>Études de cas, croquis, analyses territoriales</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Géographie">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Économie</h4>
-                            <p>Dissertations, études de marché, analyses macroéconomiques</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Économie">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Sciences Politiques</h4>
-                            <p>Analyses institutionnelles, théories politiques</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Sciences Politiques">Commander</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="professionnelles">
-                    <h3>Filières Professionnelles</h3>
-                    <p>Corrigés adaptés aux spécificités des formations professionnelles et techniques.</p>
-                    <div class="tab-grid">
-                        <div class="subject-card">
-                            <h4>Comptabilité</h4>
-                            <p>Exercices comptables, analyses financières</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Comptabilité">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Gestion</h4>
-                            <p>Études de cas, plans d'affaires, management</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Gestion">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Informatique</h4>
-                            <p>Algorithmique, programmation, bases de données</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Informatique">Commander</button>
-                        </div>
-                        <div class="subject-card">
-                            <h4>Techniques Industrielles</h4>
-                            <p>Dessin technique, mécanique, électronique</p>
-                            <button class="btn btn-secondary commander-btn" data-service="Techniques Industrielles">Commander</button>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="section-title">Services par Niveau Scolaire</h2>
+            
+            <div class="tabs-header-main">
+                <button class="tab-main college active" data-tab="college">
+                    <i class="fas fa-school"></i> Collège
+                </button>
+                <button class="tab-main lycee" data-tab="lycee">
+                    <i class="fas fa-graduation-cap"></i> Lycée
+                </button>
+                <button class="tab-main universite" data-tab="universite">
+                    <i class="fas fa-university"></i> Universitaire
+                </button>
+                <button class="tab-main these" data-tab="these">
+                    <i class="fas fa-file-contract"></i> Mémoires & Rapports
+                </button>
             </div>
-        </div>
-    </section>
-
-    <section id="levels" class="levels">
-        <div class="container">
-            <h2 class="section-title">Niveaux Scolaires</h2>
-            <div class="levels-grid">
-                <div class="level-card">
-                    <i class="fas fa-school level-icon college-color"></i>
-                    <h3>Collège</h3>
-                    <p>Corrigés adaptés pour toutes les classes du collège (6ème à 3ème) et toutes les matières, avec une approche pédagogique adaptée aux adolescents.</p>
-                    <button class="btn btn-college commander-btn" data-service="Collège">Commander un service</button>
+            
+            <div class="tabs-content-main">
+                <!-- ONGLET COLLEGE -->
+                <div class="tab-content-main active" id="college">
+                    <h3><i class="fas fa-school college-color"></i> Services pour le Collège</h3>
+                    <p>Corrigés adaptés pour toutes les classes du collège (6ème à 3ème) et toutes les matières.</p>
+                    
+                    <div class="matieres-grid">
+                        <div class="matiere-card college">
+                            <h4>Mathématiques</h4>
+                            <ul class="matiere-list">
+                                <li>Arithmétique et géométrie</li>
+                                <li>Calcul littéral</li>
+                                <li>Théorèmes (Pythagore, Thalès)</li>
+                                <li>Probabilités et statistiques</li>
+                            </ul>
+                            <button class="btn btn-college commander-btn" data-service="Collège - Mathématiques">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card college">
+                            <h4>Français</h4>
+                            <ul class="matiere-list">
+                                <li>Grammaire et conjugaison</li>
+                                <li>Rédaction et expression écrite</li>
+                                <li>Compréhension de texte</li>
+                                <li>Analyse littéraire</li>
+                            </ul>
+                            <button class="btn btn-college commander-btn" data-service="Collège - Français">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card college">
+                            <h4>Sciences</h4>
+                            <ul class="matiere-list">
+                                <li>SVT (Biologie, Géologie)</li>
+                                <li>Physique-Chimie</li>
+                                <li>Technologie</li>
+                                <li>Éducation scientifique</li>
+                            </ul>
+                            <button class="btn btn-college commander-btn" data-service="Collège - Sciences">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card college">
+                            <h4>Histoire-Géographie</h4>
+                            <ul class="matiere-list">
+                                <li>Histoire générale</li>
+                                <li>Géographie physique et humaine</li>
+                                <li>Éducation civique</li>
+                                <li>Cartographie</li>
+                            </ul>
+                            <button class="btn btn-college commander-btn" data-service="Collège - Histoire-Géo">Commander</button>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="level-card">
-                    <i class="fas fa-graduation-cap level-icon lycee-color"></i>
-                    <h3>Lycée</h3>
-                    <p>Corrigés complets pour toutes les séries (générales et technologiques) avec respect des barèmes officiels des examens.</p>
-                    <button class="btn btn-lycee commander-btn" data-service="Lycée">Commander un service</button>
+                <!-- ONGLET LYCEE -->
+                <div class="tab-content-main" id="lycee">
+                    <h3><i class="fas fa-graduation-cap lycee-color"></i> Services pour le Lycée</h3>
+                    <p>Corrigés complets pour toutes les séries (générales et technologiques).</p>
+                    
+                    <div class="matieres-grid">
+                        <div class="matiere-card lycee">
+                            <h4>Série Scientifique (Série C)</h4>
+                            <ul class="matiere-list">
+                                <li>Mathématiques avancées</li>
+                                <li>Physique-Chimie</li>
+                                <li>Sciences de la Vie et de la Terre</li>
+                                <li>Philosophie scientifique</li>
+                            </ul>
+                            <button class="btn btn-lycee commander-btn" data-service="Lycée - Série C">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card lycee">
+                            <h4>Série Littéraire (Série A)</h4>
+                            <ul class="matiere-list">
+                                <li>Littérature française</li>
+                                <li>Philosophie</li>
+                                <li>Langues vivantes</li>
+                                <li>Histoire-Géographie approfondie</li>
+                            </ul>
+                            <button class="btn btn-lycee commander-btn" data-service="Lycée - Série A">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card lycee">
+                            <h4>Série Économique (Série D)</h4>
+                            <ul class="matiere-list">
+                                <li>Sciences Économiques</li>
+                                <li>Mathématiques appliquées</li>
+                                <li>Gestion et comptabilité</li>
+                                <li>Droit et sociologie</li>
+                            </ul>
+                            <button class="btn btn-lycee commander-btn" data-service="Lycée - Série D">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card lycee">
+                            <h4>Séries Technologiques</h4>
+                            <ul class="matiere-list">
+                                <li>Série F (Sciences industrielles)</li>
+                                <li>Série G (Administration)</li>
+                                <li>Techniques commerciales</li>
+                                <li>Informatique et réseaux</li>
+                            </ul>
+                            <button class="btn btn-lycee commander-btn" data-service="Lycée - Séries Techno">Commander</button>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="level-card">
-                    <i class="fas fa-university level-icon universite-color"></i>
-                    <h3>Universitaire</h3>
-                    <p>Corrigés spécialisés pour toutes les filières universitaires, avec rigueur scientifique et approche académique.</p>
-                    <button class="btn btn-universite commander-btn" data-service="Universitaire">Commander un service</button>
+                <!-- ONGLET UNIVERSITAIRE -->
+                <div class="tab-content-main" id="universite">
+                    <h3><i class="fas fa-university universite-color"></i> Services Universitaires</h3>
+                    <p>Corrigés spécialisés pour toutes les filières universitaires (L1, L2, L3, M1, M2).</p>
+                    
+                    <div class="matieres-grid">
+                        <div class="matiere-card universite">
+                            <h4>Sciences Exactes</h4>
+                            <ul class="matiere-list">
+                                <li>Mathématiques supérieures</li>
+                                <li>Physique théorique</li>
+                                <li>Chimie avancée</li>
+                                <li>Informatique fondamentale</li>
+                            </ul>
+                            <button class="btn btn-universite commander-btn" data-service="Université - Sciences Exactes">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card universite">
+                            <h4>Sciences de la Santé</h4>
+                            <ul class="matiere-list">
+                                <li>Médecine (PACES, DFGSM)</li>
+                                <li>Pharmacie</li>
+                                <li>Biologie médicale</li>
+                                <li>Santé publique</li>
+                            </ul>
+                            <button class="btn btn-universite commander-btn" data-service="Université - Santé">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card universite">
+                            <h4>Sciences Humaines</h4>
+                            <ul class="matiere-list">
+                                <li>Droit et sciences politiques</li>
+                                <li>Économie et gestion</li>
+                                <li>Sociologie et psychologie</li>
+                                <li>Lettres et langues</li>
+                            </ul>
+                            <button class="btn btn-universite commander-btn" data-service="Université - Sciences Humaines">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card universite">
+                            <h4>Sciences de l'Ingénieur</h4>
+                            <ul class="matiere-list">
+                                <li>Génie civil et mécanique</li>
+                                <li>Électronique et électrotechnique</li>
+                                <li>Informatique industrielle</li>
+                                <li>Télécommunications</li>
+                            </ul>
+                            <button class="btn btn-universite commander-btn" data-service="Université - Ingénierie">Commander</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ONGLET MEMOIRES ET RAPPORTS -->
+                <div class="tab-content-main" id="these">
+                    <h3><i class="fas fa-file-contract these-color"></i> Mémoires & Rapports</h3>
+                    <p>Rédaction professionnelle de mémoires de fin d'études et rapports de stage.</p>
+                    
+                    <div class="matieres-grid">
+                        <div class="matiere-card these">
+                            <h4>Mémoires de Licence</h4>
+                            <ul class="matiere-list">
+                                <li>Rédaction complète</li>
+                                <li>Recherche documentaire</li>
+                                <li>Analyse statistique</li>
+                                <li>Mise en forme académique</li>
+                            </ul>
+                            <button class="btn btn-these commander-btn" data-service="Mémoire - Licence">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card these">
+                            <h4>Mémoires de Master</h4>
+                            <ul class="matiere-list">
+                                <li>Problématique et méthodologie</li>
+                                <li>Enquêtes et investigations</li>
+                                <li>Rédaction scientifique</li>
+                                <li>Préparation de soutenance</li>
+                            </ul>
+                            <button class="btn btn-these commander-btn" data-service="Mémoire - Master">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card these">
+                            <h4>Rapports de Stage</h4>
+                            <ul class="matiere-list">
+                                <li>Structuration du rapport</li>
+                                <li>Analyse des expériences</li>
+                                <li>Présentation des résultats</li>
+                                <li>Recommandations professionnelles</li>
+                            </ul>
+                            <button class="btn btn-these commander-btn" data-service="Rapport de Stage">Commander</button>
+                        </div>
+                        
+                        <div class="matiere-card these">
+                            <h4>Articles Scientifiques</h4>
+                            <ul class="matiere-list">
+                                <li>Rédaction d'articles</li>
+                                <li>Relecture et correction</li>
+                                <li>Adaptation aux normes</li>
+                                <li>Traduction académique</li>
+                            </ul>
+                            <button class="btn btn-these commander-btn" data-service="Article Scientifique">Commander</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -967,10 +888,6 @@
                 </div>
                 
                 <div class="social-links">
-                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://wa.me/22892871605" title="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
                 </div>
                 
@@ -979,11 +896,11 @@
         </div>
     </footer>
 
-    <!-- Modal pour le formulaire de commande -->
+    <!-- MODAL UNIQUE pour tous les formulaires -->
     <div id="commandeModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Commander un Service</h3>
+                <h3 id="modalTitle">Commander un Service</h3>
                 <button class="close-modal">&times;</button>
             </div>
             <form id="commandeForm">
@@ -997,18 +914,20 @@
                     <input type="text" id="nom" class="form-control" required placeholder="Votre nom et prénom">
                 </div>
                 
+                <!-- Champs conditionnels selon le niveau -->
                 <div class="form-group">
                     <label for="niveau">Niveau scolaire *</label>
-                    <select id="niveau" class="form-control" required onchange="showNiveauSpecificFields()">
+                    <select id="niveau" class="form-control" required onchange="showSpecificFields()">
                         <option value="">Sélectionnez votre niveau</option>
                         <option value="Collège">Collège</option>
                         <option value="Lycée">Lycée</option>
                         <option value="Universitaire">Universitaire</option>
+                        <option value="Mémoire/Rapport">Mémoire/Rapport</option>
                         <option value="Autre">Autre</option>
                     </select>
                 </div>
                 
-                <!-- Champs spécifiques au Collège -->
+                <!-- COLLEGE -->
                 <div id="collegeFields" class="niveau-specific">
                     <div class="form-group">
                         <label for="classe_college">Classe *</label>
@@ -1022,7 +941,7 @@
                     </div>
                 </div>
                 
-                <!-- Champs spécifiques au Lycée -->
+                <!-- LYCEE -->
                 <div id="lyceeFields" class="niveau-specific">
                     <div class="form-group">
                         <label for="classe_lycee">Classe *</label>
@@ -1042,23 +961,20 @@
                                 <option value="Série A">Série A (Littéraire)</option>
                                 <option value="Série C">Série C (Scientifique)</option>
                                 <option value="Série D">Série D (Sciences de la Vie)</option>
-                                <option value="Série A1">Série A1</option>
-                                <option value="Série A2">Série A2</option>
                             </optgroup>
                             <optgroup label="Séries Technologiques">
-                                <option value="Série F1">Série F1</option>
-                                <option value="Série F2">Série F2</option>
-                                <option value="Série F3">Série F3</option>
-                                <option value="Série F4">Série F4</option>
-                                <option value="Série G1">Série G1</option>
-                                <option value="Série G2">Série G2</option>
-                                <option value="Série G3">Série G3</option>
+                                <option value="Série F1">Série F1 (Mécanique)</option>
+                                <option value="Série F2">Série F2 (Électronique)</option>
+                                <option value="Série F3">Série F3 (Électrotechnique)</option>
+                                <option value="Série F4">Série F4 (Génie civil)</option>
+                                <option value="Série G1">Série G1 (Administration)</option>
+                                <option value="Série G2">Série G2 (Commerce)</option>
                             </optgroup>
                         </select>
                     </div>
                 </div>
                 
-                <!-- Champs spécifiques à l'Université -->
+                <!-- UNIVERSITE -->
                 <div id="universiteFields" class="niveau-specific">
                     <div class="form-group">
                         <label for="niveau_universite">Niveau universitaire *</label>
@@ -1069,66 +985,107 @@
                             <option value="Licence 3 (L3)">Licence 3 (L3)</option>
                             <option value="Master 1 (M1)">Master 1 (M1)</option>
                             <option value="Master 2 (M2)">Master 2 (M2)</option>
-                            <option value="Doctorat (PhD)">Doctorat (PhD)</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="filiere_universite">Filière/Spécialité *</label>
-                        <input type="text" id="filiere_universite" class="form-control" placeholder="Ex: Droit, Médecine, Informatique, etc.">
+                        <label for="filiere_universite">Filière/Département *</label>
+                        <input type="text" id="filiere_universite" class="form-control" placeholder="Ex: Droit, Médecine, Informatique, Économie...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="module_universite">Module/Unité d'enseignement</label>
+                        <input type="text" id="module_universite" class="form-control" placeholder="Ex: Droit civil, Algorithmique, Macroéconomie...">
                     </div>
                 </div>
                 
-                <!-- Champs spécifiques pour Autre -->
+                <!-- MEMOIRES ET RAPPORTS -->
+                <div id="theseFields" class="niveau-specific">
+                    <div class="form-group">
+                        <label for="type_travail">Type de travail *</label>
+                        <select id="type_travail" class="form-control">
+                            <option value="">Sélectionnez le type</option>
+                            <option value="Mémoire de Licence">Mémoire de Licence</option>
+                            <option value="Mémoire de Master">Mémoire de Master</option>
+                            <option value="Rapport de Stage">Rapport de Stage</option>
+                            <option value="Article Scientifique">Article Scientifique</option>
+                            <option value="Projet de Fin d'Études">Projet de Fin d'Études</option>
+                            <option value="Thèse/Doctorat">Thèse/Doctorat</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="domaine_these">Domaine de recherche *</label>
+                        <input type="text" id="domaine_these" class="form-control" placeholder="Ex: Intelligence Artificielle, Droit International, Marketing Digital...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pages_these">Nombre de pages estimé</label>
+                        <select id="pages_these" class="form-control">
+                            <option value="">Sélectionnez</option>
+                            <option value="20-40 pages">20-40 pages</option>
+                            <option value="40-60 pages">40-60 pages</option>
+                            <option value="60-80 pages">60-80 pages</option>
+                            <option value="80-100 pages">80-100 pages</option>
+                            <option value="100+ pages">100+ pages</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- AUTRE -->
                 <div id="autreFields" class="niveau-specific">
                     <div class="form-group">
-                        <label for="autre_niveau">Précisez votre niveau *</label>
-                        <input type="text" id="autre_niveau" class="form-control" placeholder="Ex: Formation professionnelle, Concours, etc.">
+                        <label for="autre_precision">Précisez votre niveau *</label>
+                        <input type="text" id="autre_precision" class="form-control" placeholder="Ex: Formation professionnelle, Concours, Cours particuliers...">
                     </div>
                 </div>
                 
+                <!-- CHAMPS COMMUNS -->
                 <div class="form-group">
-                    <label for="matiere">Matière spécifique *</label>
-                    <input type="text" id="matiere" class="form-control" required placeholder="Ex: Mathématiques, Français, Physique-Chimie, etc.">
+                    <label for="matiere">Matière/Thème principal *</label>
+                    <input type="text" id="matiere" class="form-control" required placeholder="Ex: Mathématiques, Droit, Médecine, Marketing...">
                 </div>
                 
                 <div class="form-group">
-                    <label for="type">Type de document *</label>
-                    <select id="type" class="form-control" required>
+                    <label for="type_doc">Type de document *</label>
+                    <select id="type_doc" class="form-control" required>
                         <option value="">Sélectionnez le type</option>
                         <option value="Corrigé d'examen">Corrigé d'examen</option>
                         <option value="Corrigé d'exercice">Corrigé d'exercice</option>
                         <option value="Devoir maison">Devoir maison</option>
                         <option value="Fiche de révision">Fiche de révision</option>
                         <option value="Méthodologie">Méthodologie</option>
+                        <option value="Rédaction complète">Rédaction complète</option>
+                        <option value="Correction orthographique">Correction orthographique</option>
+                        <option value="Mise en forme">Mise en forme</option>
                         <option value="Autre">Autre</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="urgence">Niveau d'urgence *</label>
+                    <label for="urgence">Délai souhaité *</label>
                     <select id="urgence" class="form-control" required>
-                        <option value="">Sélectionnez l'urgence</option>
+                        <option value="">Sélectionnez le délai</option>
                         <option value="Normal (3-5 jours)">Normal (3-5 jours)</option>
                         <option value="Urgent (24-48h)">Urgent (24-48h)</option>
                         <option value="Très urgent (Moins de 24h)">Très urgent (Moins de 24h)</option>
+                        <option value="À discuter">À discuter</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="details">Détails supplémentaires</label>
-                    <textarea id="details" class="form-control" placeholder="Décrivez précisément votre besoin, incluez des références (sujet d'examen, chapitre, etc.)..."></textarea>
+                    <label for="details">Détails spécifiques *</label>
+                    <textarea id="details" class="form-control" required placeholder="Décrivez précisément votre besoin, incluez des références, sujets, consignes..."></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="telephone">Numéro de téléphone *</label>
-                    <input type="tel" id="telephone" class="form-control" required placeholder="Votre numéro pour contact">
-                    <div class="form-note">Ce numéro sera utilisé pour vous contacter via WhatsApp</div>
+                    <label for="telephone">Numéro WhatsApp *</label>
+                    <input type="tel" id="telephone" class="form-control" required placeholder="Votre numéro pour contact WhatsApp">
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Adresse email</label>
-                    <input type="email" id="email" class="form-control" placeholder="Votre email (optionnel)">
+                    <input type="email" id="email" class="form-control" placeholder="Votre email (pour envoi des documents)">
                 </div>
                 
                 <button type="submit" class="btn btn-large" style="width: 100%; background-color: #25D366;">
@@ -1143,11 +1100,11 @@
     </div>
 
     <script>
-        // Gestion des onglets
-        document.querySelectorAll('.tab-button').forEach(button => {
+        // Gestion des onglets principaux
+        document.querySelectorAll('.tab-main').forEach(button => {
             button.addEventListener('click', () => {
-                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.querySelectorAll('.tab-main').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content-main').forEach(content => content.classList.remove('active'));
                 
                 button.classList.add('active');
                 const tabId = button.getAttribute('data-tab');
@@ -1155,14 +1112,13 @@
             });
         });
         
-        // Fonction pour afficher les champs spécifiques selon le niveau
-        function showNiveauSpecificFields() {
+        // Fonction pour afficher les champs spécifiques
+        function showSpecificFields() {
             const niveau = document.getElementById('niveau').value;
             
             // Cacher tous les champs spécifiques
             document.querySelectorAll('.niveau-specific').forEach(field => {
                 field.classList.remove('active');
-                // Réinitialiser les champs obligatoires
                 field.querySelectorAll('input, select').forEach(input => {
                     input.removeAttribute('required');
                 });
@@ -1180,9 +1136,13 @@
                 document.getElementById('universiteFields').classList.add('active');
                 document.getElementById('niveau_universite').setAttribute('required', 'required');
                 document.getElementById('filiere_universite').setAttribute('required', 'required');
+            } else if (niveau === 'Mémoire/Rapport') {
+                document.getElementById('theseFields').classList.add('active');
+                document.getElementById('type_travail').setAttribute('required', 'required');
+                document.getElementById('domaine_these').setAttribute('required', 'required');
             } else if (niveau === 'Autre') {
                 document.getElementById('autreFields').classList.add('active');
-                document.getElementById('autre_niveau').setAttribute('required', 'required');
+                document.getElementById('autre_precision').setAttribute('required', 'required');
             }
         }
         
@@ -1191,17 +1151,19 @@
         const closeModalBtn = document.querySelector('.close-modal');
         const commandeForm = document.getElementById('commandeForm');
         const serviceInput = document.getElementById('service');
+        const modalTitle = document.getElementById('modalTitle');
         
-        // Ouvrir le modal au clic sur les boutons "Commander"
+        // Ouvrir le modal
         document.querySelectorAll('.commander-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const service = button.getAttribute('data-service');
                 serviceInput.value = service;
+                modalTitle.textContent = `Commander: ${service}`;
                 modal.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
                 
-                // Réinitialiser les champs spécifiques
-                showNiveauSpecificFields();
+                // Réinitialiser et afficher les champs appropriés
+                showSpecificFields();
             });
         });
         
@@ -1211,7 +1173,6 @@
             document.body.style.overflow = 'auto';
         });
         
-        // Fermer le modal en cliquant en dehors
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.style.display = 'none';
@@ -1223,15 +1184,14 @@
         commandeForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Validation des champs spécifiques
+            // Validation
             const niveau = document.getElementById('niveau').value;
             let validationPassed = true;
             
-            if (niveau === 'Collège') {
-                if (!document.getElementById('classe_college').value) {
-                    alert('Veuillez sélectionner votre classe (Collège).');
-                    validationPassed = false;
-                }
+            // Validation selon le niveau
+            if (niveau === 'Collège' && !document.getElementById('classe_college').value) {
+                alert('Veuillez sélectionner votre classe (Collège).');
+                validationPassed = false;
             } else if (niveau === 'Lycée') {
                 if (!document.getElementById('classe_lycee').value || !document.getElementById('serie_lycee').value) {
                     alert('Veuillez sélectionner votre classe et série (Lycée).');
@@ -1242,94 +1202,94 @@
                     alert('Veuillez renseigner votre niveau et filière (Université).');
                     validationPassed = false;
                 }
-            } else if (niveau === 'Autre') {
-                if (!document.getElementById('autre_niveau').value) {
-                    alert('Veuillez préciser votre niveau.');
+            } else if (niveau === 'Mémoire/Rapport') {
+                if (!document.getElementById('type_travail').value || !document.getElementById('domaine_these').value) {
+                    alert('Veuillez spécifier le type de travail et le domaine.');
                     validationPassed = false;
                 }
+            } else if (niveau === 'Autre' && !document.getElementById('autre_precision').value) {
+                alert('Veuillez préciser votre niveau.');
+                validationPassed = false;
             }
             
             if (!validationPassed) return;
             
-            // Récupérer les données du formulaire
-            const service = serviceInput.value;
-            const nom = document.getElementById('nom').value;
-            const niveauValue = niveau;
-            const matiere = document.getElementById('matiere').value;
-            const type = document.getElementById('type').value;
-            const urgence = document.getElementById('urgence').value;
-            const details = document.getElementById('details').value;
-            const telephone = document.getElementById('telephone').value;
-            const email = document.getElementById('email').value;
+            // Récupération des données
+            const formData = {
+                service: serviceInput.value,
+                nom: document.getElementById('nom').value,
+                niveau: niveau,
+                telephone: document.getElementById('telephone').value,
+                email: document.getElementById('email').value,
+                matiere: document.getElementById('matiere').value,
+                type: document.getElementById('type_doc').value,
+                urgence: document.getElementById('urgence').value,
+                details: document.getElementById('details').value
+            };
             
             // Récupérer les champs spécifiques
-            let niveauDetails = '';
             if (niveau === 'Collège') {
-                niveauDetails = `Classe: ${document.getElementById('classe_college').value}`;
+                formData.classe = document.getElementById('classe_college').value;
             } else if (niveau === 'Lycée') {
-                niveauDetails = `Classe: ${document.getElementById('classe_lycee').value}, Série: ${document.getElementById('serie_lycee').value}`;
+                formData.classe = document.getElementById('classe_lycee').value;
+                formData.serie = document.getElementById('serie_lycee').value;
             } else if (niveau === 'Universitaire') {
-                niveauDetails = `Niveau: ${document.getElementById('niveau_universite').value}, Filière: ${document.getElementById('filiere_universite').value}`;
+                formData.niveauUniv = document.getElementById('niveau_universite').value;
+                formData.filiere = document.getElementById('filiere_universite').value;
+                formData.module = document.getElementById('module_universite').value;
+            } else if (niveau === 'Mémoire/Rapport') {
+                formData.typeTravail = document.getElementById('type_travail').value;
+                formData.domaine = document.getElementById('domaine_these').value;
+                formData.pages = document.getElementById('pages_these').value;
             } else if (niveau === 'Autre') {
-                niveauDetails = `Niveau: ${document.getElementById('autre_niveau').value}`;
+                formData.precision = document.getElementById('autre_precision').value;
             }
             
-            // Construire le message pour WhatsApp
+            // Construire le message WhatsApp
             let message = `*NOUVELLE COMMANDE - CorrigéPlus*%0A%0A`;
-            message += `*Service demandé:* ${service}%0A`;
-            message += `*Nom:* ${nom}%0A`;
-            message += `*Niveau scolaire:* ${niveauValue}%0A`;
-            if (niveauDetails) message += `*Détails niveau:* ${niveauDetails}%0A`;
-            message += `*Matière:* ${matiere}%0A`;
-            message += `*Type de document:* ${type}%0A`;
-            message += `*Urgence:* ${urgence}%0A`;
-            if (details) message += `*Détails:* ${details}%0A`;
-            message += `*Téléphone:* ${telephone}%0A`;
-            if (email) message += `*Email:* ${email}%0A`;
+            message += `*Service:* ${formData.service}%0A`;
+            message += `*Nom:* ${formData.nom}%0A`;
+            message += `*Niveau:* ${formData.niveau}%0A`;
+            
+            // Ajouter les détails spécifiques
+            if (formData.classe) message += `*Classe:* ${formData.classe}%0A`;
+            if (formData.serie) message += `*Série:* ${formData.serie}%0A`;
+            if (formData.niveauUniv) message += `*Niveau universitaire:* ${formData.niveauUniv}%0A`;
+            if (formData.filiere) message += `*Filière:* ${formData.filiere}%0A`;
+            if (formData.module) message += `*Module:* ${formData.module}%0A`;
+            if (formData.typeTravail) message += `*Type de travail:* ${formData.typeTravail}%0A`;
+            if (formData.domaine) message += `*Domaine:* ${formData.domaine}%0A`;
+            if (formData.pages) message += `*Pages estimées:* ${formData.pages}%0A`;
+            if (formData.precision) message += `*Précision:* ${formData.precision}%0A`;
+            
+            message += `*Matière/Thème:* ${formData.matiere}%0A`;
+            message += `*Type de document:* ${formData.type}%0A`;
+            message += `*Délai:* ${formData.urgence}%0A`;
+            message += `*Détails:* ${formData.details}%0A`;
+            message += `*Téléphone:* ${formData.telephone}%0A`;
+            if (formData.email) message += `*Email:* ${formData.email}%0A`;
             message += `%0A_Commande envoyée via le site CorrigéPlus_`;
             
-            // Numéro WhatsApp
-            const whatsappNumber = '22892871605';
+            // Envoyer via WhatsApp
+            window.open(`https://wa.me/22892871605?text=${message}`, '_blank');
             
-            // Ouvrir WhatsApp avec le message
-            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
-            
-            // Réinitialiser le formulaire
+            // Réinitialiser et fermer
             commandeForm.reset();
-            serviceInput.value = service; // Garder le service sélectionné
-            
-            // Fermer le modal
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
             
-            // Afficher un message de confirmation
             alert('Votre commande a été préparée pour WhatsApp. Vous allez être redirigé vers WhatsApp pour finaliser l\'envoi.');
         });
         
-        // Animation au défilement
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // Observer les cartes
-        document.querySelectorAll('.feature-card, .level-card, .subject-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(card);
+        // Gestion Échap
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
         });
         
-        // Smooth scroll pour les liens d'ancrage
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1344,14 +1304,6 @@
                     });
                 }
             });
-        });
-        
-        // Échap pour fermer le modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
         });
     </script>
 </body>
