@@ -180,7 +180,7 @@
             color: #2ecc71;
         }
 
-        /* Boutons REDUITS */
+        /* Boutons REDUITS avec lien vers Corrigé.html */
         .buttons-container {
             display: flex;
             flex-wrap: wrap;
@@ -216,6 +216,10 @@
             background: linear-gradient(135deg, #9b59b6, #3498db);
         }
 
+        .action-button.all-services {
+            background: linear-gradient(135deg, #2ecc71, #3498db);
+        }
+
         .action-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
@@ -229,8 +233,43 @@
             background: linear-gradient(135deg, #8e44ad, #2980b9);
         }
 
+        .action-button.all-services:hover {
+            background: linear-gradient(135deg, #27ae60, #2980b9);
+        }
+
         .action-button i {
             font-size: 0.9rem;
+        }
+
+        /* Bouton principal d'accès */
+        .main-access-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            min-width: 200px;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            margin: 0.5rem 0 2rem 0;
+        }
+
+        .main-access-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #c0392b, #e67e22);
+        }
+
+        .main-access-button i {
+            font-size: 1rem;
         }
 
         /* Grille de fonctionnalités simplifiée */
@@ -304,6 +343,12 @@
                 min-width: 160px;
             }
             
+            .main-access-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+                min-width: 180px;
+            }
+            
             .buttons-container {
                 flex-direction: column;
                 align-items: center;
@@ -352,6 +397,12 @@
                 de documents académiques en LaTeX/Beamer
             </p>
 
+            <!-- Bouton principal d'accès à Corrigé.html -->
+            <a href="Correction.html" class="main-access-button">
+                <i class="fas fa-external-link-alt"></i>
+                Accéder à la Plateforme Complète
+            </a>
+
             <!-- Services proposés -->
             <div class="services-container">
                 <!-- Service 1: Correction -->
@@ -387,19 +438,19 @@
                 </div>
             </div>
 
-            <!-- Boutons d'action -->
+            <!-- Boutons d'action vers Corrigé.html -->
             <div class="buttons-container">
-                <a href="Correction.html" class="action-button">
+                <a href="Correction.html" class="action-button correction">
                     <i class="fas fa-graduation-cap"></i>
                     Correction d'Épreuves
                 </a>
-                <a href="conception.html" class="action-button conception">
+                <a href="Correction.html" class="action-button conception">
                     <i class="fas fa-pencil-alt"></i>
                     Conception de Documents
                 </a>
-                <a href="#" class="action-button correction" onclick="openWhatsApp()">
-                    <i class="fab fa-whatsapp"></i>
-                    Commander un Service
+                <a href="Correction.html" class="action-button all-services">
+                    <i class="fas fa-cogs"></i>
+                    Tous les Services
                 </a>
             </div>
 
@@ -429,14 +480,14 @@
                 <div class="feature">Présentations Beamer</div>
                 <div class="feature">Conception Graphique</div>
                 <div class="feature">Adapté Afrique</div>
-                <div class="feature">Support WhatsApp</div>
+                <div class="feature">Tous Niveaux</div>
             </div>
 
             <!-- Pied de page -->
             <div class="footer">
                 <p><strong>CorrigéPlus Pro</strong> - Service Professionnel</p>
                 <p>Correction d'épreuves & Conception de documents académiques</p>
-                <p>Contact: +228 92 87 16 05 | WhatsApp disponible</p>
+                <p>Contact: +228 92 87 16 05 | Email: jeanskodoc22@gmail.com</p>
             </div>
         </div>
     </div>
@@ -453,28 +504,16 @@
                 }
             });
             
-            // Confirmation de redirection
-            const buttons = document.querySelectorAll('.action-button');
+            // Confirmation de redirection vers Corrigé.html
+            const buttons = document.querySelectorAll('a[href="Correction.html"]');
             buttons.forEach(button => {
-                if (!button.href.includes('whatsapp')) {
-                    button.addEventListener('click', function(e) {
-                        if (!confirm('Ouvrir ce service ?')) {
-                            e.preventDefault();
-                        }
-                    });
-                }
+                button.addEventListener('click', function(e) {
+                    if (!confirm('Ouvrir la plateforme CorrigéPlus ?')) {
+                        e.preventDefault();
+                    }
+                });
             });
         });
-
-        // Fonction WhatsApp
-        function openWhatsApp() {
-            const message = encodeURIComponent(
-                "Bonjour, je souhaite commander un service CorrigéPlus Pro (correction ou conception).\n" +
-                "Merci de me contacter pour discuter de mes besoins."
-            );
-            window.open(`https://wa.me/22892871605?text=${message}`, '_blank');
-            return false;
-        }
 
         // Animation des cartes au survol
         const serviceCards = document.querySelectorAll('.service-card');
