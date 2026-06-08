@@ -1,447 +1,1188 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CorrigéPlus - Correction et Conception de Documents</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CorrigéPlus — Corrigés Types d'Épreuves pour Tous les Niveaux</title>
+  <meta name="description" content="Des corrigés détaillés et professionnels pour réussir vos examens au collège, lycée et université" />
+  <meta name="keywords" content="corrigés, examens, épreuves, collège, lycée, université, mémoires, rapports, CorrigéPlus" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cp-primary': '#2c3e50',
+            'cp-secondary': '#3498db',
+            'cp-accent': '#e74c3c',
+            'cp-success': '#27ae60',
+            'cp-college': '#1abc9c',
+            'cp-lycee': '#f39c12',
+            'cp-universite': '#8e44ad',
+            'cp-these': '#9b59b6',
+            'cp-light': '#ecf0f1',
+          }
         }
+      }
+    }
+  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
 
-        body {
-            min-height: 100vh;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: transparent;
-            color: white;
-            position: relative;
-            overflow-x: hidden;
-        }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseBubble {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+    }
+    .animate-fadeInUp { animation: fadeInUp 0.8s ease-out forwards; }
+    .animate-fadeInUp-delay-1 { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; }
+    .animate-fadeInUp-delay-2 { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+    .animate-pulse-bubble { animation: pulseBubble 2s ease-in-out infinite; }
 
-        /* Image de fond à 100% avec transparence totale */
-        .background-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            object-fit: cover;
-        }
+    /* Custom scrollbar */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
 
-        /* Pas d'overlay pour transparence totale */
-        .content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.25);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 60;
+      background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-overlay .modal-content {
+      background: white; border-radius: 12px;
+      max-height: 90vh; overflow-y: auto;
+      width: 95%; max-width: 512px;
+      padding: 24px; position: relative;
+      transform: scale(0.95); transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-content { transform: scale(1); }
 
-        /* Titre principal */
-        .main-title {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-            font-weight: 700;
-        }
+    /* Tab system */
+    .tab-trigger { cursor: pointer; transition: all 0.2s; }
+    .tab-trigger.active { color: white !important; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
-        .subtitle {
-            font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
-            font-weight: 500;
-        }
+    /* Select styling */
+    select.form-select {
+      width: 100%; padding: 8px 12px;
+      border: 1px solid #d1d5db; border-radius: 6px;
+      font-size: 14px; background: white;
+      appearance: auto; outline: none;
+    }
+    select.form-select:focus { border-color: #3498db; box-shadow: 0 0 0 2px rgba(52,152,219,0.2); }
 
-        .separator {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(to right, #3498db, #2ecc71);
-            margin: 1rem auto;
-            border-radius: 1.5px;
-        }
+    input.form-input, textarea.form-textarea {
+      width: 100%; padding: 8px 12px;
+      border: 1px solid #d1d5db; border-radius: 6px;
+      font-size: 14px; outline: none;
+    }
+    input.form-input:focus, textarea.form-textarea:focus { border-color: #3498db; box-shadow: 0 0 0 2px rgba(52,152,219,0.2); }
+    input.form-input[readonly] { background: #f9fafb; }
+    textarea.form-textarea { resize: vertical; font-family: inherit; }
 
-        /* Description simplifiée */
-        .description {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            line-height: 1.5;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-            padding: 0 1rem;
-        }
+    /* Intersection Observer fade-in */
+    .reveal-section { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+    .reveal-section.visible { opacity: 1; transform: translateY(0); }
 
-        /* Sections de services */
-        .services-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 2rem 0;
-            max-width: 900px;
-        }
-
-        .service-card {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            padding: 1.5rem;
-            width: 250px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: #3498db;
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #3498db;
-        }
-
-        .service-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: #2ecc71;
-        }
-
-        .service-list {
-            list-style: none;
-            text-align: left;
-            font-size: 0.9rem;
-        }
-
-        .service-list li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.2rem;
-            position: relative;
-        }
-
-        .service-list li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #f39c12;
-        }
-
-        /* Section LaTeX */
-        .latex-section {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem auto 2rem;
-            max-width: 700px;
-            border-left: 4px solid #3498db;
-        }
-
-        .latex-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: #3498db;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .latex-code {
-            background: #1a1a1a;
-            color: #f0f0f0;
-            padding: 1.2rem;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            text-align: left;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        .code-line {
-            margin-bottom: 0.3rem;
-            padding-left: 1rem;
-            position: relative;
-        }
-
-        .code-line::before {
-            content: '>';
-            position: absolute;
-            left: 0;
-            color: #2ecc71;
-        }
-
-        /* UN SEUL BOUTON principal */
-        .single-button-container {
-            margin: 2rem 0;
-        }
-
-        .main-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #e74c3c, #f39c12);
-            color: white;
-            text-decoration: none;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            min-width: 220px;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .main-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(135deg, #c0392b, #e67e22);
-        }
-
-        .main-button i {
-            font-size: 1.1rem;
-        }
-
-        /* Grille de fonctionnalités simplifiée */
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.8rem;
-            margin: 1.5rem 0;
-            max-width: 600px;
-        }
-
-        .feature {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.6rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Pied de page */
-        .footer {
-            margin-top: 2rem;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .footer p {
-            margin-bottom: 0.3rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .content {
-                padding: 0.5rem;
-            }
-            
-            .main-title {
-                font-size: 1.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .description {
-                font-size: 1rem;
-            }
-            
-            .services-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            
-            .service-card {
-                width: 90%;
-                max-width: 300px;
-            }
-            
-            .latex-section {
-                padding: 1rem;
-                margin: 0.5rem 0.5rem 1.5rem;
-            }
-            
-            .main-button {
-                padding: 0.7rem 1.5rem;
-                font-size: 1rem;
-                min-width: 200px;
-            }
-            
-            .features {
-                gap: 0.5rem;
-            }
-            
-            .feature {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Animation simple */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
-        }
-    </style>
+    /* Card hover */
+    .card-hover { transition: box-shadow 0.3s; }
+    .card-hover:hover { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); }
+  </style>
 </head>
-<body>
-    <!-- Image de fond transparente -->
-    <img src="Corrigé.jpeg" alt="Fond Corrigé" class="background-image">
-    
-    <!-- Contenu principal -->
-    <div class="content">
-        <div class="fade-in">
-            <h1 class="main-title">CorrigéPlus Pro</h1>
-            <h2 class="subtitle">Correction & Conception de Documents</h2>
-            <div class="separator"></div>
-            
-            <p class="description">
-                Service professionnel de correction d'épreuves et conception<br>
-                de documents académiques en LaTeX/Beamer
-            </p>
+<body class="min-h-screen flex flex-col bg-white text-gray-900">
 
-            <!-- Services proposés -->
-            <div class="services-container">
-                <!-- Service 1: Correction -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-check-double"></i>
-                    </div>
-                    <h3 class="service-title">Correction d'Épreuves</h3>
-                    <ul class="service-list">
-                        <li>Examens et contrôles</li>
-                        <li>Corrigés types détaillés</li>
-                        <li>Barèmes officiels</li>
-                        <li>Tous niveaux scolaires</li>
-                        <li>Retour rapide (24-72h)</li>
-                        <li>Commentaires pédagogiques</li>
-                    </ul>
-                </div>
-
-                <!-- Service 2: Conception -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3 class="service-title">Conception de Documents</h3>
-                    <ul class="service-list">
-                        <li>Mémoires et rapports</li>
-                        <li>Présentations Beamer</li>
-                        <li>Articles scientifiques</li>
-                        <li>Documents administratifs</li>
-                        <li>Mise en page LaTeX</li>
-                        <li>Design professionnel</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- UN SEUL BOUTON vers Corrigé.html -->
-            <div class="single-button-container">
-                <a href="Corrigé.html" class="main-button">
-                    <i class="fas fa-external-link-alt"></i>
-                    Accéder à la Plateforme
-                </a>
-            </div>
-
-            <!-- Section LaTeX -->
-            <div class="latex-section">
-                <h3 class="latex-title">
-                    <i class="fas fa-code"></i> Exemple Code LaTeX
-                </h3>
-                <div class="latex-code">
-                    <div class="code-line">% Correction automatique</div>
-                    <div class="code-line">\correction{question}{réponse}{points}</div>
-                    <div class="code-line">% Conception de document</div>
-                    <div class="code-line">\documentclass[12pt,a4paper]{report}</div>
-                    <div class="code-line">\usepackage{fancyhdr, graphicx}</div>
-                    <div class="code-line">\begin{document}</div>
-                    <div class="code-line">  \chapter{Mémoire de Recherche}</div>
-                    <div class="code-line">  \section{Introduction}</div>
-                    <div class="code-line">  \section{Méthodologie}</div>
-                    <div class="code-line">\end{document}</div>
-                </div>
-            </div>
-
-            <!-- Fonctionnalités -->
-            <div class="features">
-                <div class="feature">Correction Automatique</div>
-                <div class="feature">Modèles LaTeX</div>
-                <div class="feature">Présentations Beamer</div>
-                <div class="feature">Conception Graphique</div>
-                <div class="feature">Adapté Afrique</div>
-                <div class="feature">Tous Niveaux</div>
-            </div>
-
-            <!-- Pied de page -->
-            <div class="footer">
-                <p><strong>CorrigéPlus Pro</strong> - Service Professionnel</p>
-                <p>Correction d'épreuves & Conception de documents académiques</p>
-                <p>Contact: +228 92 87 16 05 | Email: jeanskodoc22@gmail.com</p>
-            </div>
-        </div>
+  <!-- ========== HEADER ========== -->
+  <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 text-white no-underline">
+          <i data-lucide="graduation-cap" class="w-8 h-8"></i>
+          <span class="text-xl sm:text-2xl font-bold">CorrigéPlus</span>
+        </a>
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="#about" class="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-white/10 no-underline">À propos</a>
+          <a href="#features" class="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-white/10 no-underline">Avantages</a>
+          <a href="#services" class="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-white/10 no-underline">Niveaux</a>
+          <a href="#pricing" class="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-white/10 no-underline">Tarifs</a>
+          <a href="#process" class="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-white/10 no-underline">Processus</a>
+          <a href="#contact" class="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-white/10 no-underline">Contact</a>
+        </nav>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white p-2 rounded-md hover:bg-white/10 transition-colors" aria-label="Ouvrir le menu">
+          <i data-lucide="menu" class="w-6 h-6" id="menu-icon-open"></i>
+          <i data-lucide="x" class="w-6 h-6 hidden" id="menu-icon-close"></i>
+        </button>
+      </div>
     </div>
+    <!-- Mobile Nav -->
+    <div id="mobile-nav" class="md:hidden hidden" style="background: rgba(44,62,80,0.95); backdrop-filter: blur(4px); border-top: 1px solid rgba(255,255,255,0.1);">
+      <nav class="px-4 py-2 space-y-1">
+        <a href="#about" class="block text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-colors rounded-md hover:bg-white/10 no-underline mobile-link">À propos</a>
+        <a href="#features" class="block text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-colors rounded-md hover:bg-white/10 no-underline mobile-link">Avantages</a>
+        <a href="#services" class="block text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-colors rounded-md hover:bg-white/10 no-underline mobile-link">Niveaux</a>
+        <a href="#pricing" class="block text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-colors rounded-md hover:bg-white/10 no-underline mobile-link">Tarifs</a>
+        <a href="#process" class="block text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-colors rounded-md hover:bg-white/10 no-underline mobile-link">Processus</a>
+        <a href="#contact" class="block text-white/80 hover:text-white px-3 py-2 text-base font-medium transition-colors rounded-md hover:bg-white/10 no-underline mobile-link">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-    <script>
-        // Animation simple au chargement
-        document.addEventListener('DOMContentLoaded', function() {
-            // Effet de parallaxe léger
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const background = document.querySelector('.background-image');
-                if (background) {
-                    background.style.transform = `translateY(${scrolled * 0.3}px)`;
-                }
-            });
-            
-            // Confirmation de redirection vers Corrigé.html
-            const mainButton = document.querySelector('.main-button');
-            if (mainButton) {
-                mainButton.addEventListener('click', function(e) {
-                    if (!confirm('Ouvrir la plateforme CorrigéPlus ?')) {
-                        e.preventDefault();
-                    }
-                });
-            }
-        });
+  <main class="flex-1">
 
-        // Animation des cartes au survol
-        const serviceCards = document.querySelectorAll('.service-card');
-        serviceCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.5)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.boxShadow = 'none';
-            });
+    <!-- ========== HERO ========== -->
+    <section class="relative min-h-screen flex items-center justify-center text-white overflow-hidden" style="background-image: url('corrige-bg.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fadeInUp leading-tight">
+          Corrigés Types d'Épreuves pour Tous les Niveaux
+        </h1>
+        <p class="text-lg sm:text-xl md:text-2xl text-white/90 mb-10 animate-fadeInUp-delay-1 max-w-3xl mx-auto leading-relaxed">
+          Des corrigés détaillés et professionnels pour réussir vos examens au collège, lycée et université
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp-delay-2">
+          <a href="#services" class="inline-flex items-center justify-center gap-2 bg-[#3498db] hover:bg-[#2980b9] text-white text-lg px-8 py-6 rounded-lg font-medium transition-colors no-underline cursor-pointer">
+            <i data-lucide="arrow-down" class="w-5 h-5"></i>
+            Explorer les niveaux
+          </a>
+          <a href="#pricing" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-6 rounded-lg font-medium transition-colors no-underline cursor-pointer">
+            <i data-lucide="credit-card" class="w-5 h-5"></i>
+            Voir nos tarifs
+          </a>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section id="about" class="py-16 sm:py-24 bg-white reveal-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-[#2c3e50] mb-4">À propos de CorrigéPlus</h2>
+          <div class="w-20 h-1 bg-[#3498db] mx-auto rounded-full"></div>
+        </div>
+        <div class="max-w-4xl mx-auto space-y-6 text-gray-700 text-lg leading-relaxed">
+          <p>
+            CorrigéPlus est une plateforme innovante dédiée à la réussite académique des étudiants de tous niveaux.
+            Que vous soyez au collège, au lycée ou à l'université, nous mettons à votre disposition des
+            corrigés types détaillés et rédigés par des enseignants expérimentés. Notre mission est de vous
+            accompagner dans votre parcours éducatif en vous offrant des outils pédagogiques de qualité.
+          </p>
+          <p>
+            Notre équipe d'enseignants expérimentés et passionnés travaille sans relâche pour vous fournir
+            des corrigés qui respectent les programmes officiels et les attentes des examinateurs. Chaque corrigé
+            est conçu pour vous aider à comprendre les concepts clés, à maîtriser les méthodologies et à optimiser
+            vos chances de réussite aux examens.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FEATURES ========== -->
+    <section id="features" class="py-16 sm:py-24 bg-[#ecf0f1] reveal-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-[#2c3e50] mb-4">Nos Avantages</h2>
+          <div class="w-20 h-1 bg-[#3498db] mx-auto rounded-full"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <!-- Corrigés Détaillés -->
+          <div class="bg-white rounded-xl shadow-lg card-hover p-6 sm:p-8 text-center">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(39,174,96,0.08);">
+              <i data-lucide="check-circle" class="w-8 h-8" style="color: #27ae60;"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#2c3e50] mb-3">Corrigés Détaillés</h3>
+            <p class="text-gray-600 leading-relaxed">Des explications étape par étape pour chaque exercice, vous permettant de comprendre la démarche et la méthodologie employée.</p>
+          </div>
+          <!-- Gain de Temps -->
+          <div class="bg-white rounded-xl shadow-lg card-hover p-6 sm:p-8 text-center">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(243,156,18,0.08);">
+              <i data-lucide="clock" class="w-8 h-8" style="color: #f39c12;"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#2c3e50] mb-3">Gain de Temps</h3>
+            <p class="text-gray-600 leading-relaxed">Accédez rapidement à des ressources de qualité sans perdre des heures à chercher. Tout est organisé et prêt à l'emploi.</p>
+          </div>
+          <!-- Réussite Garantie -->
+          <div class="bg-white rounded-xl shadow-lg card-hover p-6 sm:p-8 text-center">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: rgba(52,152,219,0.08);">
+              <i data-lucide="graduation-cap" class="w-8 h-8" style="color: #3498db;"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#2c3e50] mb-3">Réussite Garantie</h3>
+            <p class="text-gray-600 leading-relaxed">Améliorez vos résultats grâce à des corrigés qui respectent les standards académiques et les attentes des examinateurs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SERVICE TABS ========== -->
+    <section id="services" class="py-16 sm:py-24 bg-white reveal-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-[#2c3e50] mb-4">Services par Niveau Scolaire</h2>
+          <div class="w-20 h-1 bg-[#3498db] mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Tab Triggers -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8">
+          <button class="tab-trigger active rounded-lg py-3 px-4 text-sm sm:text-base font-semibold" style="background-color: #1abc9c; color: white;" data-tab="college">Collège</button>
+          <button class="tab-trigger rounded-lg py-3 px-4 text-sm sm:text-base font-semibold" style="background-color: #ecf0f1; color: #2c3e50;" data-tab="lycee">Lycée</button>
+          <button class="tab-trigger rounded-lg py-3 px-4 text-sm sm:text-base font-semibold" style="background-color: #ecf0f1; color: #2c3e50;" data-tab="universitaire">Universitaire</button>
+          <button class="tab-trigger rounded-lg py-3 px-4 text-sm sm:text-base font-semibold" style="background-color: #ecf0f1; color: #2c3e50;" data-tab="memoires">Mémoires &amp; Rapports</button>
+        </div>
+
+        <!-- Collège Tab -->
+        <div class="tab-content active" id="tab-college">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #1abc9c;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Mathématiques
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Arithmétique et géométrie</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Calcul littéral</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Théorèmes (Pythagore, Thalès)</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Probabilités et statistiques</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #1abc9c;" onclick="openOrderModal('Collège - Mathématiques')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #1abc9c;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Français
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Grammaire et conjugaison</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Rédaction et expression écrite</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Compréhension de texte</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Analyse littéraire</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #1abc9c;" onclick="openOrderModal('Collège - Français')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #1abc9c;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Sciences
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>SVT (Biologie, Géologie)</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Physique-Chimie</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Technologie</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Éducation scientifique</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #1abc9c;" onclick="openOrderModal('Collège - Sciences')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #1abc9c;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Histoire-Géographie
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Histoire générale</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Géographie physique et humaine</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Éducation civique</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#1abc9c;"></span>Cartographie</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #1abc9c;" onclick="openOrderModal('Collège - Histoire-Géographie')">Commander</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lycée Tab -->
+        <div class="tab-content" id="tab-lycee">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #f39c12;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Série Scientifique (Série C)
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Mathématiques avancées</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Physique-Chimie</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>SVT</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Philosophie scientifique</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #f39c12;" onclick="openOrderModal('Lycée - Série Scientifique (Série C)')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #f39c12;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Série Littéraire (Série A)
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Littérature française</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Philosophie</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Langues vivantes</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Histoire-Géographie approfondie</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #f39c12;" onclick="openOrderModal('Lycée - Série Littéraire (Série A)')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #f39c12;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Série Économique (Série D)
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Sciences Économiques</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Mathématiques appliquées</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Gestion et comptabilité</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Droit et sociologie</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #f39c12;" onclick="openOrderModal('Lycée - Série Économique (Série D)')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #f39c12;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Séries Technologiques
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Série F (Sciences industrielles)</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Série G (Administration)</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Techniques commerciales</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#f39c12;"></span>Informatique et réseaux</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #f39c12;" onclick="openOrderModal('Lycée - Séries Technologiques')">Commander</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Universitaire Tab -->
+        <div class="tab-content" id="tab-universitaire">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #8e44ad;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Sciences Exactes
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Mathématiques supérieures</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Physique théorique</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Chimie avancée</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Informatique fondamentale</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #8e44ad;" onclick="openOrderModal('Universitaire - Sciences Exactes')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #8e44ad;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Sciences de la Santé
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Médecine (PACES, DFGSM)</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Pharmacie</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Biologie médicale</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Santé publique</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #8e44ad;" onclick="openOrderModal('Universitaire - Sciences de la Santé')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #8e44ad;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Sciences Humaines
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Droit et sciences politiques</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Économie et gestion</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Sociologie et psychologie</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Lettres et langues</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #8e44ad;" onclick="openOrderModal('Universitaire - Sciences Humaines')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #8e44ad;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Sciences de l'Ingénieur
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Génie civil et mécanique</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Électronique et électrotechnique</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Informatique industrielle</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#8e44ad;"></span>Télécommunications</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #8e44ad;" onclick="openOrderModal('Universitaire - Sciences de l\'Ingénieur')">Commander</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mémoires & Rapports Tab -->
+        <div class="tab-content" id="tab-memoires">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #9b59b6;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Mémoires de Licence
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Rédaction complète</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Recherche documentaire</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Analyse statistique</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Mise en forme académique</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #9b59b6;" onclick="openOrderModal('Mémoires & Rapports - Mémoires de Licence')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #9b59b6;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Mémoires de Master
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Problématique et méthodologie</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Enquêtes et investigations</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Rédaction scientifique</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Préparation de soutenance</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #9b59b6;" onclick="openOrderModal('Mémoires & Rapports - Mémoires de Master')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #9b59b6;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Rapports de Stage
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Structuration du rapport</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Analyse des expériences</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Présentation des résultats</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Recommandations professionnelles</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #9b59b6;" onclick="openOrderModal('Mémoires & Rapports - Rapports de Stage')">Commander</button>
+            </div>
+            <div class="bg-white rounded-xl shadow-md card-hover p-6">
+              <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2 mb-3" style="color: #9b59b6;">
+                <i data-lucide="list-checks" class="w-5 h-5"></i>Articles Scientifiques
+              </h3>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Rédaction d'articles</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Relecture et correction</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Adaptation aux normes</li>
+                <li class="flex items-start gap-2 text-gray-600 text-sm sm:text-base"><span class="w-2 h-2 rounded-full mt-2 shrink-0" style="background:#9b59b6;"></span>Traduction académique</li>
+              </ul>
+              <button class="w-full text-white py-2 px-4 rounded-lg font-medium transition-opacity hover:opacity-90 cursor-pointer" style="background-color: #9b59b6;" onclick="openOrderModal('Mémoires & Rapports - Articles Scientifiques')">Commander</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PRICING ========== -->
+    <section id="pricing" class="py-16 sm:py-24 bg-[#ecf0f1] reveal-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-[#2c3e50] mb-4">Nos Tarifs</h2>
+          <div class="w-20 h-1 bg-[#3498db] mx-auto rounded-full"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <!-- Corrigé Simple -->
+          <div class="bg-white rounded-xl shadow-md card-hover p-6 relative">
+            <div class="text-center pb-2">
+              <h3 class="text-lg font-bold text-[#2c3e50]">Corrigé Simple d'exercice</h3>
+              <p class="text-2xl font-bold text-[#3498db] mt-2">0,457€ - 3,049€</p>
+            </div>
+            <ul class="space-y-3 mb-6 mt-4">
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Fiches méthodologiques</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Support prioritaire</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Corrigé détaillé d'une épreuve</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Explications étape par étape</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Format PDF téléchargeable</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Livraison sous 24h</li>
+            </ul>
+            <button class="w-full bg-[#3498db] hover:bg-[#2980b9] text-white py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer" onclick="openOrderModal('Corrigé Simple d\'exercice')">Commander</button>
+          </div>
+          <!-- Pack Collège -->
+          <div class="bg-white rounded-xl shadow-md card-hover p-6 relative">
+            <div class="text-center pb-2">
+              <h3 class="text-lg font-bold text-[#2c3e50]">Pack Collège</h3>
+              <p class="text-2xl font-bold text-[#3498db] mt-2">0,381€ - 0,762€</p>
+            </div>
+            <ul class="space-y-3 mb-6 mt-4">
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Fiches méthodologiques</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Support prioritaire</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Corrigé détaillé d'une épreuve</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Explications étape par étape</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Format PDF téléchargeable</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Livraison sous 24h</li>
+            </ul>
+            <button class="w-full bg-[#3498db] hover:bg-[#2980b9] text-white py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer" onclick="openOrderModal('Pack Collège')">Commander</button>
+          </div>
+          <!-- Pack Lycée (Populaire) -->
+          <div class="bg-white rounded-xl shadow-md card-hover p-6 relative ring-2 ring-[#3498db] scale-[1.02]">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#3498db] text-white text-xs font-bold px-3 py-1 rounded-full">Populaire</div>
+            <div class="text-center pb-2">
+              <h3 class="text-lg font-bold text-[#2c3e50]">Pack Lycée</h3>
+              <p class="text-2xl font-bold text-[#3498db] mt-2">0,762€ - 1,525€</p>
+            </div>
+            <ul class="space-y-3 mb-6 mt-4">
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Fiches méthodologiques</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Support prioritaire</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Corrigé détaillé d'une épreuve</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Explications étape par étape</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Format PDF téléchargeable</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Livraison sous 24h</li>
+            </ul>
+            <button class="w-full bg-[#3498db] hover:bg-[#2980b9] text-white py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer" onclick="openOrderModal('Pack Lycée')">Commander</button>
+          </div>
+          <!-- Pack Licence -->
+          <div class="bg-white rounded-xl shadow-md card-hover p-6 relative">
+            <div class="text-center pb-2">
+              <h3 class="text-lg font-bold text-[#2c3e50]">Pack Licence</h3>
+              <p class="text-2xl font-bold text-[#3498db] mt-2">1,525€ - 3,049€</p>
+            </div>
+            <ul class="space-y-3 mb-6 mt-4">
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Fiches méthodologiques</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Support prioritaire</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Corrigé détaillé d'une épreuve</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Explications étape par étape</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Format PDF téléchargeable</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Livraison sous 24h</li>
+            </ul>
+            <button class="w-full bg-[#3498db] hover:bg-[#2980b9] text-white py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer" onclick="openOrderModal('Pack Licence')">Commander</button>
+          </div>
+          <!-- Pack Master -->
+          <div class="bg-white rounded-xl shadow-md card-hover p-6 relative">
+            <div class="text-center pb-2">
+              <h3 class="text-lg font-bold text-[#2c3e50]">Pack Master</h3>
+              <p class="text-2xl font-bold text-[#3498db] mt-2">3,811€ - 7,623€</p>
+            </div>
+            <ul class="space-y-3 mb-6 mt-4">
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Fiches méthodologiques</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Support prioritaire</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Corrigé détaillé d'une épreuve</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Explications étape par étape</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Format PDF téléchargeable</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i data-lucide="check" class="w-4 h-4 text-[#27ae60] mt-0.5 shrink-0"></i>Livraison sous 24h</li>
+            </ul>
+            <button class="w-full bg-[#3498db] hover:bg-[#2980b9] text-white py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer" onclick="openOrderModal('Pack Master')">Commander</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROCESS ========== -->
+    <section id="process" class="py-16 sm:py-24 bg-white reveal-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-[#2c3e50] mb-4">Notre Processus</h2>
+          <div class="w-20 h-1 bg-[#3498db] mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Desktop horizontal layout -->
+        <div class="hidden lg:flex items-start justify-between relative">
+          <div class="absolute top-10 left-[10%] right-[10%] h-0.5 bg-gray-200"></div>
+          <div class="flex flex-col items-center text-center w-1/5 relative">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg relative z-10" style="background-color: #3498db;">1</div>
+            <i data-lucide="shopping-cart" class="w-6 h-6 mt-3" style="color: #3498db;"></i>
+            <h3 class="text-lg font-bold text-[#2c3e50] mt-2 mb-2">Commande</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Choisissez l'épreuve ou l'exercice et l'insérer lors du chat direct après avoir renseigné le formulaire</p>
+          </div>
+          <div class="flex flex-col items-center text-center w-1/5 relative">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg relative z-10" style="background-color: #27ae60;">2</div>
+            <i data-lucide="pen-tool" class="w-6 h-6 mt-3" style="color: #27ae60;"></i>
+            <h3 class="text-lg font-bold text-[#2c3e50] mt-2 mb-2">Réalisation</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Nos enseignants experts préparent le corrigé détaillé</p>
+          </div>
+          <div class="flex flex-col items-center text-center w-1/5 relative">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg relative z-10" style="background-color: #f39c12;">3</div>
+            <i data-lucide="check-square" class="w-6 h-6 mt-3" style="color: #f39c12;"></i>
+            <h3 class="text-lg font-bold text-[#2c3e50] mt-2 mb-2">Validation</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Le corrigé est relu et validé par notre comité pédagogique</p>
+          </div>
+          <div class="flex flex-col items-center text-center w-1/5 relative">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg relative z-10" style="background-color: #8e44ad;">4</div>
+            <i data-lucide="truck" class="w-6 h-6 mt-3" style="color: #8e44ad;"></i>
+            <h3 class="text-lg font-bold text-[#2c3e50] mt-2 mb-2">Livraison</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Vous recevez votre corrigé par WHATSAPP ou par chat direct dans le format pdf crypté</p>
+          </div>
+          <div class="flex flex-col items-center text-center w-1/5 relative">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg relative z-10" style="background-color: #e74c3c;">5</div>
+            <i data-lucide="credit-card" class="w-6 h-6 mt-3" style="color: #e74c3c;"></i>
+            <h3 class="text-lg font-bold text-[#2c3e50] mt-2 mb-2">Paiement</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Charger votre compte pour le paiement automatique et recevez le code de décryptage pour accéder au corrigé type</p>
+          </div>
+        </div>
+
+        <!-- Mobile vertical layout -->
+        <div class="lg:hidden space-y-6">
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0" style="background-color: #3498db;">1</div>
+              <div class="w-0.5 flex-1 bg-gray-200 mt-2"></div>
+            </div>
+            <div class="pb-6">
+              <div class="flex items-center gap-2 mb-1">
+                <i data-lucide="shopping-cart" class="w-5 h-5" style="color: #3498db;"></i>
+                <h3 class="text-lg font-bold text-[#2c3e50]">Commande</h3>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">Choisissez l'épreuve ou l'exercice et l'insérer lors du chat direct après avoir renseigné le formulaire</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0" style="background-color: #27ae60;">2</div>
+              <div class="w-0.5 flex-1 bg-gray-200 mt-2"></div>
+            </div>
+            <div class="pb-6">
+              <div class="flex items-center gap-2 mb-1">
+                <i data-lucide="pen-tool" class="w-5 h-5" style="color: #27ae60;"></i>
+                <h3 class="text-lg font-bold text-[#2c3e50]">Réalisation</h3>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">Nos enseignants experts préparent le corrigé détaillé</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0" style="background-color: #f39c12;">3</div>
+              <div class="w-0.5 flex-1 bg-gray-200 mt-2"></div>
+            </div>
+            <div class="pb-6">
+              <div class="flex items-center gap-2 mb-1">
+                <i data-lucide="check-square" class="w-5 h-5" style="color: #f39c12;"></i>
+                <h3 class="text-lg font-bold text-[#2c3e50]">Validation</h3>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">Le corrigé est relu et validé par notre comité pédagogique</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0" style="background-color: #8e44ad;">4</div>
+              <div class="w-0.5 flex-1 bg-gray-200 mt-2"></div>
+            </div>
+            <div class="pb-6">
+              <div class="flex items-center gap-2 mb-1">
+                <i data-lucide="truck" class="w-5 h-5" style="color: #8e44ad;"></i>
+                <h3 class="text-lg font-bold text-[#2c3e50]">Livraison</h3>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">Vous recevez votre corrigé par WHATSAPP ou par chat direct dans le format pdf crypté</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0" style="background-color: #e74c3c;">5</div>
+            </div>
+            <div class="pb-6">
+              <div class="flex items-center gap-2 mb-1">
+                <i data-lucide="credit-card" class="w-5 h-5" style="color: #e74c3c;"></i>
+                <h3 class="text-lg font-bold text-[#2c3e50]">Paiement</h3>
+              </div>
+              <p class="text-sm text-gray-600 leading-relaxed">Charger votre compte pour le paiement automatique et recevez le code de décryptage pour accéder au corrigé type</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section class="py-16 sm:py-24 bg-white reveal-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-[#2c3e50] mb-4">Témoignages</h2>
+          <div class="w-20 h-1 bg-[#3498db] mx-auto rounded-full"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div class="bg-white rounded-xl shadow-md card-hover p-6 sm:p-8">
+            <i data-lucide="quote" class="w-8 h-8 mb-4" style="color: rgba(52,152,219,0.3);"></i>
+            <p class="text-gray-700 text-base leading-relaxed mb-6 italic">"Les corrigés de mathématiques m'ont sauvé la mise pour le brevet. Explications claires et détaillées!"</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: rgba(52,152,219,0.1);">
+                <span class="text-[#3498db] font-bold text-sm">L</span>
+              </div>
+              <div>
+                <p class="font-semibold text-[#2c3e50]">Lucas</p>
+                <p class="text-sm text-gray-500">élève de 3ème</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-md card-hover p-6 sm:p-8">
+            <i data-lucide="quote" class="w-8 h-8 mb-4" style="color: rgba(52,152,219,0.3);"></i>
+            <p class="text-gray-700 text-base leading-relaxed mb-6 italic">"En tant que parent, j'apprécie la qualité des corrigés qui aident mon fils à progresser dans toutes les matières."</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: rgba(52,152,219,0.1);">
+                <span class="text-[#3498db] font-bold text-sm">S</span>
+              </div>
+              <div>
+                <p class="font-semibold text-[#2c3e50]">Sophie</p>
+                <p class="text-sm text-gray-500">parent d'élève</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-md card-hover p-6 sm:p-8">
+            <i data-lucide="quote" class="w-8 h-8 mb-4" style="color: rgba(52,152,219,0.3);"></i>
+            <p class="text-gray-700 text-base leading-relaxed mb-6 italic">"Les corrigés de philo pour le bac L sont exceptionnels. Ça m'a vraiment aidé à comprendre la méthodologie."</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: rgba(52,152,219,0.1);">
+                <span class="text-[#3498db] font-bold text-sm">M</span>
+              </div>
+              <div>
+                <p class="font-semibold text-[#2c3e50]">Manon</p>
+                <p class="text-sm text-gray-500">élève de Terminale</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="py-16 sm:py-24 text-white text-center" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-6">Prêt à exceller dans vos examens ?</h2>
+        <p class="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+          Rejoignez des milliers d'étudiants qui ont déjà amélioré leurs résultats grâce à CorrigéPlus
+        </p>
+        <button class="inline-flex items-center gap-2 bg-[#27ae60] hover:bg-[#219a52] text-white text-lg px-8 py-6 rounded-lg font-medium transition-colors cursor-pointer" onclick="openOrderModal('Service personnalisé')">
+          Commander un service maintenant
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contact" class="bg-[#1a252f] text-white mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Logo & Description -->
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <i data-lucide="graduation-cap" class="w-7 h-7 text-[#3498db]"></i>
+            <span class="text-xl font-bold">CorrigéPlus</span>
+          </div>
+          <p class="text-white/70 leading-relaxed">Service professionnel de corrigés types pour tous les niveaux</p>
+        </div>
+        <!-- Contact -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact</h3>
+          <ul class="space-y-3">
+            <li>
+              <a href="mailto:jeanskodoc22@gmail.com" class="flex items-center gap-2 text-white/70 hover:text-white transition-colors no-underline">
+                <i data-lucide="mail" class="w-4 h-4"></i>jeanskodoc22@gmail.com
+              </a>
+            </li>
+            <li>
+              <a href="tel:+22892871605" class="flex items-center gap-2 text-white/70 hover:text-white transition-colors no-underline">
+                <i data-lucide="phone" class="w-4 h-4"></i>+228 92 87 16 05
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/22892871605" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white/70 hover:text-white transition-colors no-underline">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>WhatsApp disponible
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Liens rapides</h3>
+          <ul class="space-y-2">
+            <li><a href="#about" class="text-white/70 hover:text-white transition-colors no-underline text-sm">À propos</a></li>
+            <li><a href="#services" class="text-white/70 hover:text-white transition-colors no-underline text-sm">Services</a></li>
+            <li><a href="#pricing" class="text-white/70 hover:text-white transition-colors no-underline text-sm">Tarifs</a></li>
+            <li><a href="#process" class="text-white/70 hover:text-white transition-colors no-underline text-sm">Processus</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-8 pt-8 text-center text-white/50 text-sm">
+        &copy; 2025 CorrigéPlus. Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== ORDER MODAL ========== -->
+  <div id="order-modal" class="modal-overlay custom-scrollbar" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal-content">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 id="modal-title" class="text-xl font-bold text-[#2c3e50]">Commander un service</h2>
+          <p id="modal-desc" class="text-sm text-gray-500 mt-1">Remplissez le formulaire ci-dessous pour commander un corrigé ou un service académique.</p>
+        </div>
+        <button onclick="closeOrderModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 cursor-pointer" aria-label="Fermer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="order-form" class="space-y-4" onsubmit="handleOrderSubmit(event)">
+        <!-- Service demandé -->
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-gray-700">Service demandé</label>
+          <input type="text" id="modal-service" class="form-input bg-gray-50" readonly />
+        </div>
+        <!-- Nom complet -->
+        <div class="space-y-1">
+          <label for="order-nom" class="text-sm font-medium text-gray-700">Nom complet <span class="text-red-500">*</span></label>
+          <input type="text" id="order-nom" class="form-input" placeholder="Votre nom complet" required />
+        </div>
+        <!-- Niveau scolaire -->
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-gray-700">Niveau scolaire <span class="text-red-500">*</span></label>
+          <select id="order-niveau" class="form-select" required onchange="updateNiveauFields()">
+            <option value="">Sélectionnez votre niveau</option>
+            <option value="college">Collège</option>
+            <option value="lycee">Lycée</option>
+            <option value="universitaire">Universitaire</option>
+            <option value="memoire">Mémoire/Rapport</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <!-- Conditional: Collège -->
+        <div id="field-college" class="space-y-1 hidden">
+          <label class="text-sm font-medium text-gray-700">Classe</label>
+          <select id="order-classe-college" class="form-select">
+            <option value="">Sélectionnez votre classe</option>
+            <option value="6eme">6ème</option>
+            <option value="5eme">5ème</option>
+            <option value="4eme">4ème</option>
+            <option value="3eme">3ème</option>
+          </select>
+        </div>
+
+        <!-- Conditional: Lycée -->
+        <div id="field-lycee" class="space-y-4 hidden">
+          <div class="space-y-1">
+            <label class="text-sm font-medium text-gray-700">Classe</label>
+            <select id="order-classe-lycee" class="form-select">
+              <option value="">Sélectionnez votre classe</option>
+              <option value="seconde">Seconde</option>
+              <option value="premiere">Première</option>
+              <option value="terminale">Terminale</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="text-sm font-medium text-gray-700">Série</label>
+            <select id="order-serie" class="form-select">
+              <option value="">Sélectionnez votre série</option>
+              <option value="A">Série A</option>
+              <option value="C">Série C</option>
+              <option value="D">Série D</option>
+              <option value="F1">Série F1</option>
+              <option value="F2">Série F2</option>
+              <option value="F3">Série F3</option>
+              <option value="F4">Série F4</option>
+              <option value="G1">Série G1</option>
+              <option value="G2">Série G2</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Conditional: Universitaire -->
+        <div id="field-universitaire" class="space-y-4 hidden">
+          <div class="space-y-1">
+            <label class="text-sm font-medium text-gray-700">Niveau</label>
+            <select id="order-uni-niveau" class="form-select">
+              <option value="">Sélectionnez votre niveau</option>
+              <option value="L1">L1</option>
+              <option value="L2">L2</option>
+              <option value="L3">L3</option>
+              <option value="M1">M1</option>
+              <option value="M2">M2</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label for="order-filiere" class="text-sm font-medium text-gray-700">Filière</label>
+            <input type="text" id="order-filiere" class="form-input" placeholder="Ex: Informatique, Droit, Médecine..." />
+          </div>
+          <div class="space-y-1">
+            <label for="order-module" class="text-sm font-medium text-gray-700">Module</label>
+            <input type="text" id="order-module" class="form-input" placeholder="Ex: Algèbre, Droit civil..." />
+          </div>
+        </div>
+
+        <!-- Conditional: Mémoire/Rapport -->
+        <div id="field-memoire" class="space-y-4 hidden">
+          <div class="space-y-1">
+            <label class="text-sm font-medium text-gray-700">Type de travail</label>
+            <select id="order-type-travail" class="form-select">
+              <option value="">Sélectionnez le type</option>
+              <option value="memoire-licence">Mémoire de Licence</option>
+              <option value="memoire-master">Mémoire de Master</option>
+              <option value="rapport-stage">Rapport de Stage</option>
+              <option value="article">Article Scientifique</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label for="order-domaine" class="text-sm font-medium text-gray-700">Domaine</label>
+            <input type="text" id="order-domaine" class="form-input" placeholder="Ex: Sciences de l'éducation, Informatique..." />
+          </div>
+          <div class="space-y-1">
+            <label for="order-pages" class="text-sm font-medium text-gray-700">Pages estimées</label>
+            <input type="text" id="order-pages" class="form-input" placeholder="Ex: 30-50 pages" />
+          </div>
+        </div>
+
+        <!-- Conditional: Autre -->
+        <div id="field-autre" class="space-y-1 hidden">
+          <label for="order-precision" class="text-sm font-medium text-gray-700">Précision</label>
+          <input type="text" id="order-precision" class="form-input" placeholder="Précisez votre besoin" />
+        </div>
+
+        <!-- Common fields -->
+        <div class="space-y-1">
+          <label for="order-matiere" class="text-sm font-medium text-gray-700">Matière/Thème <span class="text-red-500">*</span></label>
+          <input type="text" id="order-matiere" class="form-input" placeholder="Ex: Mathématiques, Philosophie..." required />
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-gray-700">Type de document</label>
+          <select id="order-type-document" class="form-select">
+            <option value="">Sélectionnez le type de document</option>
+            <option value="epreuve">Épreuve complète</option>
+            <option value="exercice">Exercice spécifique</option>
+            <option value="dissertation">Dissertation</option>
+            <option value="commentaire">Commentaire composé</option>
+            <option value="tp">Travail pratique (TP)</option>
+            <option value="memoire">Mémoire</option>
+            <option value="rapport">Rapport</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-sm font-medium text-gray-700">Délai souhaité</label>
+          <select id="order-delai" class="form-select">
+            <option value="">Sélectionnez le délai</option>
+            <option value="24h">24 heures</option>
+            <option value="48h">48 heures</option>
+            <option value="3j">3 jours</option>
+            <option value="5j">5 jours</option>
+            <option value="1s">1 semaine</option>
+            <option value="2s">2 semaines</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label for="order-details" class="text-sm font-medium text-gray-700">Détails supplémentaires</label>
+          <textarea id="order-details" class="form-textarea" rows="3" placeholder="Précisez vos besoins, consignes spéciales..."></textarea>
+        </div>
+
+        <div class="space-y-1">
+          <label for="order-whatsapp" class="text-sm font-medium text-gray-700">Numéro WhatsApp <span class="text-red-500">*</span></label>
+          <input type="text" id="order-whatsapp" class="form-input" placeholder="Ex: +228 90 00 00 00" required />
+        </div>
+
+        <div class="space-y-1">
+          <label for="order-email" class="text-sm font-medium text-gray-700">Email</label>
+          <input type="email" id="order-email" class="form-input" placeholder="votre@email.com" />
+        </div>
+
+        <p class="text-xs text-gray-500 text-center">
+          Votre commande sera envoyée automatiquement au numéro +228 92 87 16 05
+        </p>
+
+        <button type="submit" class="w-full bg-[#27ae60] hover:bg-[#219a52] text-white py-4 px-4 rounded-lg text-base font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          Envoyer la commande par WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== FLOATING PAYMENT BUBBLE ========== -->
+  <div class="fixed bottom-6 left-6 z-40">
+    <a href="https://me.fedapay.com/cWSMqAQC" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-14 h-14 rounded-full shadow-lg animate-pulse-bubble no-underline" style="background-color: #8e44ad;" aria-label="Effectuer un paiement">
+      <i data-lucide="credit-card" class="w-6 h-6 text-white"></i>
+    </a>
+  </div>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // ---- Header scroll effect ----
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.style.background = 'linear-gradient(135deg, #1a252f 0%, #2c3e50 50%, #34495e 100%)';
+        header.classList.add('shadow-lg');
+      } else {
+        header.style.background = 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)';
+        header.classList.remove('shadow-lg');
+      }
+    });
+
+    // ---- Mobile menu toggle ----
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+    let mobileMenuOpen = false;
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenuOpen = !mobileMenuOpen;
+      if (mobileMenuOpen) {
+        mobileNav.classList.remove('hidden');
+        menuIconOpen.classList.add('hidden');
+        menuIconClose.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-label', 'Fermer le menu');
+      } else {
+        mobileNav.classList.add('hidden');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-label', 'Ouvrir le menu');
+      }
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuOpen = false;
+        mobileNav.classList.add('hidden');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+      });
+    });
+
+    // ---- Tab system ----
+    const tabColors = {
+      college: '#1abc9c',
+      lycee: '#f39c12',
+      universitaire: '#8e44ad',
+      memoires: '#9b59b6'
+    };
+
+    document.querySelectorAll('.tab-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabKey = btn.getAttribute('data-tab');
+        // Update triggers
+        document.querySelectorAll('.tab-trigger').forEach(t => {
+          t.style.backgroundColor = '#ecf0f1';
+          t.style.color = '#2c3e50';
+          t.classList.remove('active');
         });
-    </script>
+        btn.style.backgroundColor = tabColors[tabKey];
+        btn.style.color = 'white';
+        btn.classList.add('active');
+        // Update content
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById('tab-' + tabKey).classList.add('active');
+      });
+    });
+
+    // ---- Order Modal ----
+    const modal = document.getElementById('order-modal');
+    const modalService = document.getElementById('modal-service');
+
+    function openOrderModal(serviceName) {
+      modalService.value = serviceName;
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeOrderModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      document.getElementById('order-form').reset();
+      modalService.value = '';
+      // Hide all conditional fields
+      document.getElementById('field-college').classList.add('hidden');
+      document.getElementById('field-lycee').classList.add('hidden');
+      document.getElementById('field-universitaire').classList.add('hidden');
+      document.getElementById('field-memoire').classList.add('hidden');
+      document.getElementById('field-autre').classList.add('hidden');
+    }
+
+    // Close modal on overlay click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeOrderModal();
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeOrderModal();
+    });
+
+    // ---- Conditional niveau fields ----
+    function updateNiveauFields() {
+      const niveau = document.getElementById('order-niveau').value;
+      document.getElementById('field-college').classList.add('hidden');
+      document.getElementById('field-lycee').classList.add('hidden');
+      document.getElementById('field-universitaire').classList.add('hidden');
+      document.getElementById('field-memoire').classList.add('hidden');
+      document.getElementById('field-autre').classList.add('hidden');
+
+      if (niveau === 'college') document.getElementById('field-college').classList.remove('hidden');
+      if (niveau === 'lycee') document.getElementById('field-lycee').classList.remove('hidden');
+      if (niveau === 'universitaire') document.getElementById('field-universitaire').classList.remove('hidden');
+      if (niveau === 'memoire') document.getElementById('field-memoire').classList.remove('hidden');
+      if (niveau === 'autre') document.getElementById('field-autre').classList.remove('hidden');
+    }
+
+    // ---- Form submission ----
+    function handleOrderSubmit(e) {
+      e.preventDefault();
+
+      const serviceName = modalService.value;
+      const nom = document.getElementById('order-nom').value;
+      const niveau = document.getElementById('order-niveau').value;
+      const matiere = document.getElementById('order-matiere').value;
+      const typeDocument = document.getElementById('order-type-document').value;
+      const delai = document.getElementById('order-delai').value;
+      const details = document.getElementById('order-details').value;
+      const whatsapp = document.getElementById('order-whatsapp').value;
+      const email = document.getElementById('order-email').value;
+
+      let niveauDetails = '';
+      switch (niveau) {
+        case 'college':
+          niveauDetails = 'Classe: ' + document.getElementById('order-classe-college').value;
+          break;
+        case 'lycee':
+          niveauDetails = 'Classe: ' + document.getElementById('order-classe-lycee').value + ', Série: ' + document.getElementById('order-serie').value;
+          break;
+        case 'universitaire':
+          niveauDetails = 'Niveau: ' + document.getElementById('order-uni-niveau').value + ', Filière: ' + document.getElementById('order-filiere').value + ', Module: ' + document.getElementById('order-module').value;
+          break;
+        case 'memoire':
+          niveauDetails = 'Type de travail: ' + document.getElementById('order-type-travail').value + ', Domaine: ' + document.getElementById('order-domaine').value + ', Pages estimées: ' + document.getElementById('order-pages').value;
+          break;
+        case 'autre':
+          niveauDetails = 'Précision: ' + document.getElementById('order-precision').value;
+          break;
+      }
+
+      const lines = [
+        '*NOUVELLE COMMANDE CorrigéPlus*',
+        '',
+        '*Service:* ' + serviceName,
+        '*Nom:* ' + nom,
+        '*Niveau scolaire:* ' + niveau,
+        niveauDetails ? '*Détails niveau:* ' + niveauDetails : '',
+        '*Matière/Thème:* ' + matiere,
+        '*Type de document:* ' + typeDocument,
+        '*Délai souhaité:* ' + delai,
+        details ? '*Détails:* ' + details : '',
+        '*WhatsApp:* ' + whatsapp,
+        '*Email:* ' + email,
+      ].filter(Boolean);
+
+      const message = lines.join('\n');
+      const encoded = encodeURIComponent(message);
+      window.open('https://wa.me/22892871605?text=' + encoded, '_blank');
+      closeOrderModal();
+    }
+
+    // ---- Intersection Observer for reveal animations ----
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal-section').forEach(el => revealObserver.observe(el));
+
+    // ---- Tawk.to Chat ----
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function() {
+      var s1 = document.createElement('script');
+      var s0 = document.getElementsByTagName('script')[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/68b88883721af15d8752e7d4/1j48dahct';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      if (s0.parentNode) s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+
 </body>
 </html>
